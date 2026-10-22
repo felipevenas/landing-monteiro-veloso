@@ -1,4 +1,28 @@
-# Monteiro Veloso Advogados
+<div align="center">
+
+# Monteiro Veloso Advogados 🏛️⚖️
+
+**Site institucional e landing page de busca e apreensão de veículo para escritório de advocacia em Salvador/BA**
+
+[![CI Status](https://img.shields.io/badge/CI-Passing-brightgreen?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/felipevenas/landing-monteiro-veloso/actions)
+[![Astro](https://img.shields.io/badge/Astro-7.4-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build/)
+[![Node Version](https://img.shields.io/badge/Node-%3E%3D22.22-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)](LICENSE)
+
+<br />
+
+<p align="center">
+  <a href="#stack"><b>Stack</b></a> •
+  <a href="#como-rodar"><b>Executar Local</b></a> •
+  <a href="#scripts"><b>Scripts</b></a> •
+  <a href="#rotas-e-navegação"><b>Rotas</b></a> •
+  <a href="#-governança-e-comunidade"><b>Governança</b></a>
+</p>
+
+</div>
+
+---
 
 Site institucional e landing page de **busca e apreensão de veículo** para o escritório Monteiro Veloso Advogados, em Salvador/BA.
 
@@ -201,3 +225,40 @@ O conteúdo evita promessa de resultado, preços, descontos, depoimentos, listas
 - Direitos de imagem das fotos e revisão da política de privacidade (encarregado/retenção).
 
 Enquanto isso, `npm run build` falha de forma intencional e `npm run build:preview` permite navegar.
+
+---
+
+## 🤝 Governança e Comunidade
+
+Este repositório segue uma governança formal, espelhando a dos demais projetos do autor:
+
+| Documento                                                             | Finalidade                                                                                                                                        |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md)                                  | Fluxo de branches/commits, diretrizes arquiteturais e como rodar os gates.                                                                        |
+| [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)                            | Código de conduta da comunidade.                                                                                                                  |
+| [`SECURITY.md`](SECURITY.md)                                          | Política de divulgação responsável e escopo de segurança (LGPD, PII, segredos e OAB).                                                             |
+| [`CHANGELOG.md`](CHANGELOG.md)                                        | Histórico de versões ([Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/) + SemVer).                                                      |
+| [`.agents/`](.agents)                                                 | Ecossistema multi-agente: `tech-lead`, `software-architect`, `ux-ui-designer`, `backend-dev`, `frontend-dev`, `security-engineer`, `qa-engineer`. |
+| [`.github/`](.github)                                                 | Templates de Issue/PR e workflows de **CI** (lint, tipos, Vitest, Playwright e build) e **labels**.                                               |
+| [`.editorconfig`](.editorconfig) · [`.gitattributes`](.gitattributes) | Padronização de estilo, finais de linha LF e normalização de binários.                                                                            |
+
+---
+
+## Documentação relacionada
+
+- [`docs/architecture.md`](docs/architecture.md) — camadas, fronteiras e fluxo de dados.
+- [`docs/design.md`](docs/design.md) — conceito visual, tokens e responsividade.
+- [`docs/deploy.md`](docs/deploy.md) — publicação no `public_html` da Hostinger.
+- [`docs/n8n-contract.md`](docs/n8n-contract.md) — contrato do payload do lead.
+- [`docs/qa.md`](docs/qa.md) — gates automáticos e matriz de aceite.
+- [`docs/decisions/`](docs/decisions) — ADRs de Astro e da entrega do lead.
+
+---
+
+## 📄 Licença
+
+Distribuído sob a licença **MIT**. Consulte o arquivo [`LICENSE`](LICENSE) para mais informações.
+
+<div align="center">
+Desenvolvido com excelência por <b><a href="https://github.com/felipevenas">Felipe Venas</a></b>
+</div>
