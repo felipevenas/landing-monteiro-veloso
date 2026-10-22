@@ -1,0 +1,46 @@
+---
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import Section from '@/shared/ui/Section.astro';
+import SectionHeading from '@/shared/ui/SectionHeading.astro';
+import { homeProcess } from '../content';
+---
+
+<Section id="como-funciona" background="blue" labelledby="home-processo-title">
+  <Container>
+    <SectionHeading
+      id="home-processo-title"
+      eyebrow={homeProcess.eyebrow}
+      title={homeProcess.title}
+      description={homeProcess.description}
+    />
+
+    <ol class="mt-10 grid gap-px border border-border bg-border md:grid-cols-2 lg:mt-12 lg:grid-cols-4">
+      {homeProcess.steps.map((step) => (
+        <li class="bg-paper p-6 sm:p-7">
+          <div class="flex items-center justify-between">
+            <span class="font-display text-3xl text-brand" aria-hidden="true">
+              {step.number}
+            </span>
+            <span class="h-px w-10 bg-blue-200" aria-hidden="true"></span>
+          </div>
+          <h3 class="mt-6 font-display text-[1.35rem] text-ink">{step.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-text-2">{step.text}</p>
+        </li>
+      ))}
+    </ol>
+
+    <div class="mt-8 flex flex-col gap-4 border-l-2 border-brand bg-paper p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+      <p class="flex items-start gap-2.5 text-sm leading-relaxed text-text-2">
+        <Icon name="lucide:info" size={17} class="mt-0.5 shrink-0 text-blue-600" />A contratação só
+        acontece depois da análise e da apresentação das condições. Nenhum resultado é garantido.
+      </p>
+      <a
+        href="#contato"
+        class="inline-flex min-h-11 shrink-0 items-center justify-center rounded-[2px] bg-brand px-5 text-sm font-bold text-white transition hover:bg-navy-800"
+      >
+        Começar pelo contato
+      </a>
+    </div>
+  </Container>
+</Section>

@@ -1,0 +1,45 @@
+---
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import Section from '@/shared/ui/Section.astro';
+import { site } from '@/shared/config/site';
+import { homeAbout } from '../content';
+---
+
+<Section id="escritorio" background="paper" labelledby="escritorio-title">
+  <Container>
+    <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-16">
+      <div>
+        <span class="mb-5 block h-px w-12 bg-blue-500/70" aria-hidden="true"></span>
+        <h2 id="escritorio-title" class="display-2 text-ink">
+          Técnica com atenção ao que importa para você.
+        </h2>
+        <div class="mt-6 flex items-start gap-3 border-l-2 border-brand pl-4">
+          <Icon name="lucide:map-pin" size={17} class="mt-0.5 shrink-0 text-brand" />
+          <div>
+            <p class="text-sm font-bold text-ink">Escritório no Comércio, Salvador</p>
+            <p class="text-xs text-text-2">Atendimento com hora combinada</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="space-y-4 text-[1.01rem] leading-relaxed text-text-2">
+          {homeAbout.paragraphs.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+        <div class="mt-7 flex flex-wrap items-center gap-4 border-t border-border pt-5">
+          <p class="text-sm font-bold text-ink">{site.lawyer.name}</p>
+          <p class="text-sm text-text-2">{site.lawyer.role}</p>
+          <a
+            href={homeAbout.ctaHref}
+            class="ml-auto inline-flex min-h-11 items-center text-sm font-bold text-brand underline decoration-blue-200 underline-offset-4 hover:text-navy-800"
+          >
+            {homeAbout.cta}
+          </a>
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>

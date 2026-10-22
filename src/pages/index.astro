@@ -1,0 +1,53 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HomeHero from '@/features/home/ui/HomeHero.astro';
+import HomeTrustBar from '@/features/home/ui/HomeTrustBar.astro';
+import HomeAreas from '@/features/home/ui/HomeAreas.astro';
+import HomeAbout from '@/features/home/ui/HomeAbout.astro';
+import HomeProcess from '@/features/home/ui/HomeProcess.astro';
+import HomeDifferentials from '@/features/home/ui/HomeDifferentials.astro';
+import HomeFaq from '@/features/home/ui/HomeFaq.astro';
+import HomeCoverage from '@/features/home/ui/HomeCoverage.astro';
+import HomeLocation from '@/features/home/ui/HomeLocation.astro';
+import ContactFormSection from '@/features/contact-form/ui/ContactFormSection.astro';
+import { homeContact, homeFaq, homeSeo } from '@/features/home/content';
+import { createMetadata } from '@/shared/seo/metadata';
+import {
+  faqSchema,
+  legalServiceSchema,
+  lawyerSchema,
+  webPageSchema,
+  websiteSchema,
+} from '@/shared/seo/json-ld';
+
+const metadata = createMetadata({
+  title: homeSeo.title,
+  description: homeSeo.description,
+  path: homeSeo.path,
+});
+
+const jsonLd = [
+  legalServiceSchema(),
+  lawyerSchema(),
+  websiteSchema(),
+  webPageSchema({
+    canonical: metadata.canonical,
+    title: metadata.title,
+    description: metadata.description,
+  }),
+  faqSchema(homeFaq),
+];
+---
+
+<BaseLayout metadata={metadata} jsonLd={jsonLd}>
+  <HomeHero />
+  <HomeTrustBar />
+  <HomeAreas />
+  <HomeAbout />
+  <HomeProcess />
+  <HomeDifferentials />
+  <HomeFaq />
+  <HomeCoverage />
+  <HomeLocation />
+  <ContactFormSection {...homeContact} />
+</BaseLayout>

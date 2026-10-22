@@ -1,0 +1,42 @@
+---
+import Icon from '@/shared/ui/Icon.astro';
+import { mapQuery, site } from '@/shared/config/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const query = mapQuery();
+const title = `Mapa do escritório ${site.name} em ${site.address.city}`;
+---
+
+<div
+  class:list={[
+    'relative w-full overflow-hidden rounded-[2px] border border-border bg-blue-50',
+    className,
+  ]}
+>
+  <div class="flex min-h-[20rem] w-full flex-col items-center justify-center p-6 text-center sm:p-8">
+    <Icon name="lucide:map-pin" size={24} class="text-brand" />
+    <p class="mt-4 font-display text-xl text-ink">Estamos no Comércio, em Salvador.</p>
+    <p class="mt-2 max-w-sm text-sm leading-relaxed text-text-2">
+      O mapa é carregado apenas quando você escolhe abrir, para evitar cookies de terceiros antes do
+      necessário.
+    </p>
+    <button
+      type="button"
+      class="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-[2px] border border-border-interactive bg-paper px-5 text-sm font-bold text-brand transition hover:bg-blue-50"
+      data-map-load
+      data-map-query={query}
+      data-map-title={title}
+    >
+      <Icon name="lucide:map" size={18} />
+      Carregar mapa
+    </button>
+  </div>
+</div>
+
+<script>
+  import './map.client';
+</script>

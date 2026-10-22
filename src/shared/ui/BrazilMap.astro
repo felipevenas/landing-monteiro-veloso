@@ -1,0 +1,46 @@
+---
+import { BRAZIL_MAP_VIEWBOX, BRAZIL_STATES } from './brazil-map.data';
+
+interface Props {
+  /** UF destacada (sigla minúscula). Padrão: a sede, Bahia. */
+  highlight?: string;
+  class?: string;
+}
+
+const { highlight = 'ba', class: className } = Astro.props;
+---
+
+<svg
+  viewBox={BRAZIL_MAP_VIEWBOX}
+  class:list={['brazil-map', className]}
+  aria-hidden="true"
+  focusable="false"
+>
+  {BRAZIL_STATES.map((state) => (
+    <path
+      d={state.path}
+      class:list={['brazil-map__state', state.id === highlight && 'brazil-map__state--highlight']}
+      data-state={state.id}
+    />
+  ))}
+</svg>
+
+<style>
+  .brazil-map {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .brazil-map__state {
+    fill: var(--color-blue-200);
+    stroke: var(--color-blue-500);
+    stroke-width: 0.7;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .brazil-map__state--highlight {
+    fill: var(--color-brand);
+    stroke: var(--color-navy-900);
+  }
+</style>

@@ -1,0 +1,11 @@
+# Normaliza texto para LF no repositório, independentemente do core.autocrlf do Windows.
+* text=auto eol=lf
+
+# Binários: nunca normalizar.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.woff2 binary

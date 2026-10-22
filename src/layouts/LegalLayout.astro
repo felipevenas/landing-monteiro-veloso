@@ -1,0 +1,15 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { Metadata } from '@/shared/seo/metadata';
+
+interface Props {
+  metadata: Metadata;
+  jsonLd?: Array<Record<string, unknown> | null | undefined>;
+}
+
+const { metadata, jsonLd = [] } = Astro.props;
+---
+
+<BaseLayout metadata={metadata} jsonLd={jsonLd}>
+  <slot />
+</BaseLayout>

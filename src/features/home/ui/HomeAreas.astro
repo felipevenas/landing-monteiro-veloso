@@ -1,0 +1,35 @@
+---
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import Section from '@/shared/ui/Section.astro';
+import SectionHeading from '@/shared/ui/SectionHeading.astro';
+import { homeAreas } from '../content';
+---
+
+<Section id="areas" background="white" labelledby="areas-title">
+  <Container>
+    <SectionHeading
+      id="areas-title"
+      eyebrow={homeAreas.eyebrow}
+      title={homeAreas.title}
+      highlight="contexto"
+      description={homeAreas.description}
+    />
+    <div class="mt-10 grid gap-x-8 gap-y-10 md:grid-cols-3">
+      {homeAreas.items.map((item) => (
+        <article class="flex flex-col border-t border-border pt-5">
+          <Icon name={item.icon} size={19} class="text-brand" />
+          <h3 class="mt-4 font-display text-[1.4rem] leading-tight text-ink">{item.title}</h3>
+          <p class="mt-3 flex-1 text-sm leading-relaxed text-text-2">{item.text}</p>
+          <a
+            href={item.href}
+            aria-label={`${item.cta}: ${item.title}`}
+            class="mt-6 inline-flex min-h-11 items-center text-sm font-bold text-brand underline decoration-blue-200 underline-offset-4 hover:text-navy-800"
+          >
+            {item.cta}
+          </a>
+        </article>
+      ))}
+    </div>
+  </Container>
+</Section>

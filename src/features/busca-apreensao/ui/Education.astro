@@ -1,0 +1,42 @@
+---
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import Section from '@/shared/ui/Section.astro';
+import SectionHeading from '@/shared/ui/SectionHeading.astro';
+import { education } from '../content';
+---
+
+<Section background="white" labelledby="entenda-title">
+  <Container>
+    <SectionHeading
+      id="entenda-title"
+      eyebrow={education.eyebrow}
+      title={education.title}
+      highlight="busca e apreensão"
+      description={education.description}
+    />
+
+    <div class="mt-10 grid gap-x-8 gap-y-10 md:grid-cols-3 lg:mt-12">
+      {education.cards.map((card) => (
+        <article class="border-t border-border pt-5">
+          <Icon name={card.icon} size={19} class="text-brand" />
+          <h3 class="mt-4 font-display text-[1.4rem] text-ink">{card.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-text-2">{card.text}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-8 flex flex-col gap-4 border-l-2 border-blue-600 bg-blue-50 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+      <p class="max-w-2xl text-sm leading-relaxed text-text-2">
+        A leitura correta depende do contrato e do processo. Se você recebeu uma notificação, não
+        deixe para entender depois.
+      </p>
+      <a
+        href="#contato"
+        class="inline-flex min-h-11 shrink-0 items-center justify-center rounded-[2px] bg-brand px-5 text-sm font-bold text-white transition hover:bg-navy-800"
+      >
+        Tirar uma dúvida
+      </a>
+    </div>
+  </Container>
+</Section>

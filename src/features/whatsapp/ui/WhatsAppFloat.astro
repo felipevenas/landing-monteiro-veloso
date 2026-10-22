@@ -1,0 +1,23 @@
+---
+import Icon from '@/shared/ui/Icon.astro';
+import { site } from '@/shared/config/site';
+import { whatsappUrl } from '../domain/whatsapp';
+---
+
+<a
+  href={whatsappUrl(site.phone.whatsapp)}
+  class="whatsapp-float fixed bottom-5 right-5 z-40 hidden size-14 items-center justify-center rounded-full border border-white/20 bg-navy-900 text-white shadow-soft transition hover:bg-ink sm:bottom-6 sm:right-6 sm:inline-flex"
+  aria-label="Falar pelo WhatsApp"
+  data-wa
+  data-wa-location="float"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <Icon name="lucide:message-circle" size={25} />
+</a>
+
+<style>
+  :global(html[data-consent='undecided']) .whatsapp-float {
+    display: none;
+  }
+</style>

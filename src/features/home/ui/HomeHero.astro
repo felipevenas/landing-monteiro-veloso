@@ -1,0 +1,85 @@
+---
+import { Picture } from 'astro:assets';
+import Button from '@/shared/ui/Button.astro';
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import { publishable } from '@/shared/config/field';
+import { site } from '@/shared/config/site';
+import { escapeHtml } from '@/shared/lib/html';
+import homeImage from '@/assets/images/roberta-process.jpg';
+import { homeHero } from '../content';
+
+const oab = publishable(site.lawyer.oab);
+const titleHtml = escapeHtml(
+  `${homeHero.titleBefore}${homeHero.titleHighlight}${homeHero.titleAfter}`,
+);
+---
+
+<section class="border-b border-border bg-paper">
+  <Container class="hero-shell grid gap-12 lg:grid-cols-[1.04fr_0.96fr] lg:items-center lg:gap-16">
+    <div class="max-w-2xl lg:border-l-2 lg:border-blue-600 lg:pl-8">
+      <p class="text-sm font-medium text-blue-600">{homeHero.eyebrow}</p>
+
+      <h1 class="display-hero mt-6 text-ink" set:html={titleHtml} />
+
+      <p class="mt-6 max-w-xl text-[1.05rem] leading-relaxed text-text-2 sm:text-[1.12rem]">
+        {homeHero.subtitle}
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <Button href={site.phone.whatsapp} variant="primary" size="lg" dataWa dataWaLocation="hero">
+          <Icon name="lucide:message-circle" size={18} />
+          {homeHero.primaryCta}
+        </Button>
+        <Button href="#escritorio" variant="outline" size="lg">
+          {homeHero.secondaryCta}
+        </Button>
+      </div>
+
+      <ul class="hero-trust mt-8 flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-text-2">
+        <li class="flex items-center gap-1.5">
+          <Icon name="lucide:check" size={13} class="text-blue-600" /> Escritório em Salvador
+        </li>
+        <li class="flex items-center gap-1.5">
+          <Icon name="lucide:check" size={13} class="text-blue-600" /> Sigilo profissional
+        </li>
+        <li class="flex items-center gap-1.5">
+          <Icon name="lucide:check" size={13} class="text-blue-600" /> Análise individualizada
+        </li>
+      </ul>
+    </div>
+
+    <figure class="hero-media mx-auto w-full lg:mx-0 lg:ml-auto">
+      <div class="relative aspect-[4/5] overflow-hidden border border-border bg-blue-50">
+        <Picture
+          src={homeImage}
+          alt={homeHero.imageAlt}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          widths={[420, 640, 840]}
+          sizes="(min-width: 1024px) 400px, 90vw"
+          width={840}
+          height={1260}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="h-full w-full object-cover object-[center_22%]"
+        />
+      </div>
+      <figcaption class="flex items-end justify-between gap-4 border-x border-b border-border bg-paper-alt px-4 py-3">
+        <div>
+          <p class="font-display text-lg text-ink">{homeHero.imageCaption}</p>
+          <p class="mt-0.5 text-[0.7rem] font-semibold text-blue-600">
+            {homeHero.imageRole}
+            {oab ? ` / OAB/BA ${oab}` : ''}
+          </p>
+        </div>
+        <p class="text-right text-[0.65rem] font-semibold leading-tight text-text-2">
+          Salvador
+          <br />
+          Bahia
+        </p>
+      </figcaption>
+    </figure>
+  </Container>
+</section>

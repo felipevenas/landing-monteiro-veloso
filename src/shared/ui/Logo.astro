@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '@/shared/config/site';
+import logoBranco from '@/assets/brand/logo-branco.png';
+import logoColor from '@/assets/brand/logo-color.png';
+
+interface Props {
+  variant?: 'white' | 'color';
+  height?: number;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+}
+
+const { variant = 'white', height = 62, class: className, loading = 'eager' } = Astro.props;
+const src = variant === 'white' ? logoBranco : logoColor;
+const width = Math.round((height * 859) / 812);
+---
+
+<Image
+  src={src}
+  width={width}
+  height={height}
+  widths={[width, width * 2, width * 3]}
+  sizes={`${width}px`}
+  alt={site.name}
+  format="webp"
+  quality={92}
+  loading={loading}
+  decoding="async"
+  class={className}
+/>

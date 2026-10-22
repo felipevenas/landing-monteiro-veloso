@@ -1,0 +1,92 @@
+---
+import LegalLayout from '@/layouts/LegalLayout.astro';
+import Container from '@/shared/ui/Container.astro';
+import Section from '@/shared/ui/Section.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import { routes } from '@/shared/config/routes';
+import { createMetadata } from '@/shared/seo/metadata';
+import {
+  breadcrumbSchema,
+  legalServiceSchema,
+  lawyerSchema,
+  webPageSchema,
+  websiteSchema,
+} from '@/shared/seo/json-ld';
+import {
+  privacyIntro,
+  privacySections,
+  privacySeo,
+  privacyUpdatedAt,
+} from '@/features/privacy/content';
+
+const metadata = createMetadata({
+  title: privacySeo.title,
+  description: privacySeo.description,
+  path: privacySeo.path,
+});
+
+const jsonLd = [
+  legalServiceSchema(),
+  lawyerSchema(),
+  websiteSchema(),
+  webPageSchema({
+    canonical: metadata.canonical,
+    title: metadata.title,
+    description: metadata.description,
+  }),
+  breadcrumbSchema(privacySeo.breadcrumb),
+];
+---
+
+<LegalLayout metadata={metadata} jsonLd={jsonLd}>
+  <Section background="white" labelledby="privacidade-title">
+    <Container class="max-w-4xl">
+      <a
+        href={routes.home}
+        class="inline-flex items-center gap-2 text-sm font-bold text-brand underline decoration-blue-200 underline-offset-4 hover:text-navy-800"
+      >
+        <Icon name="lucide:arrow-left" size={16} />
+        Voltar ao início
+      </a>
+
+      <p class="mt-8 text-sm font-medium text-blue-600">Informação e transparência</p>
+      <h1 id="privacidade-title" class="display-2 mt-3 text-ink">
+        Política de Privacidade
+      </h1>
+      <p class="mt-5 max-w-2xl text-[1.05rem] leading-relaxed text-text-2">{privacyIntro}</p>
+      <p class="mt-4 text-xs font-semibold text-text-2">Última atualização: {privacyUpdatedAt}</p>
+
+      <div class="prose-mv mt-10">
+        {privacySections.map((section) => (
+          <section>
+            <h2>{section.title}</h2>
+            {section.paragraphs?.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+            {section.items && (
+              <ul>
+                {section.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))}
+      </div>
+
+      <div class="mt-12 border-l-2 border-blue-600 bg-blue-50 p-6">
+        <p class="font-display text-xl text-ink">Fale sobre os seus dados</p>
+        <p class="mt-2 text-sm leading-relaxed text-text-2">
+          Para exercer direitos ou tirar dúvidas sobre esta política, escreva para
+          <a
+            class="ml-1 font-bold text-brand underline decoration-blue-200 underline-offset-4"
+            href="mailto:robertavelosoadv@gmail.com"
+          >
+            robertavelosoadv@gmail.com
+          </a>
+          .
+        </p>
+      </div>
+    </Container>
+  </Section>
+</LegalLayout>

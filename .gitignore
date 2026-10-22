@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build
+dist/
+.astro/
+.output/
+.vercel/
+
+# env
+.env
+.env.*
+!.env.example
+
+# tests
+playwright-report/
+test-results/
+.playwright-mcp/
+coverage/
+
+# editors / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# logs
+*.log
+npm-debug.log*
+
+.vercel

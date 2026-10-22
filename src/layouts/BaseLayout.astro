@@ -1,0 +1,57 @@
+---
+import '@/styles/global.css';
+import Seo from '@/shared/seo/Seo.astro';
+import { publicEnv } from '@/shared/config/env';
+import SiteHeader from '@/shared/ui/SiteHeader.astro';
+import SiteFooter from '@/shared/ui/SiteFooter.astro';
+import ConsentBanner from '@/features/consent/ui/ConsentBanner.astro';
+import WhatsAppFloat from '@/features/whatsapp/ui/WhatsAppFloat.astro';
+import type { Metadata } from '@/shared/seo/metadata';
+
+interface Props {
+  metadata: Metadata;
+  jsonLd?: Array<Record<string, unknown> | null | undefined>;
+}
+
+const { metadata, jsonLd = [] } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR" data-consent-version={publicEnv.consentVersion}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Seo metadata={metadata} jsonLd={jsonLd} />
+
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href="/fonts/playfair-display-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <script is:inline src="/scripts/boot.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">
+      Pular para o conteúdo
+    </a>
+    <SiteHeader />
+    <main id="conteudo">
+      <slot />
+    </main>
+    <SiteFooter />
+    <ConsentBanner />
+    <WhatsAppFloat />
+
+    <script>
+      import '@/features/consent/ui/consent-banner.client';
+      import '@/features/analytics/ui/analytics.client';
+    </script>
+  </body>
+</html>

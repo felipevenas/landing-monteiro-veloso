@@ -1,0 +1,361 @@
+@import 'tailwindcss';
+@source '../**/*.{astro,html,js,jsx,ts,tsx,md,mdx}';
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 900;
+  src: url('/fonts/playfair-display-latin.woff2') format('woff2-variations');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 900;
+  src: url('/fonts/playfair-display-latin-ext.woff2') format('woff2-variations');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url('/fonts/manrope-latin.woff2') format('woff2-variations');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url('/fonts/manrope-latin-ext.woff2') format('woff2-variations');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+
+@theme {
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-ink: #0a1628;
+  --color-navy-900: #0f2340;
+  --color-navy-800: #14305a;
+  --color-brand: #1a3b6f;
+  --color-blue-600: #2e63a8;
+  --color-blue-500: #3e7cc0;
+  --color-sky-300: #9dbbe0;
+  --color-blue-200: #c3d6ec;
+  --color-paper: #ffffff;
+  --color-paper-alt: #f7f9fc;
+  --color-blue-50: #eef4fa;
+  --color-text: #0e1a2b;
+  --color-text-2: #3f4e62;
+  --color-border: #dce3ec;
+  --color-field: #7b8fa6;
+  /* Borda de controles interativos: >= 3:1 sobre paper, paper-alt e blue-50 (WCAG 1.4.11). */
+  --color-border-interactive: #7b8fa6;
+
+  --shadow-soft: 0 24px 70px -32px rgba(10, 22, 40, 0.42);
+  --shadow-card: 0 14px 40px -26px rgba(15, 35, 64, 0.4);
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-paper);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-blue-500);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-sky-300);
+    color: var(--color-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-mv {
+    width: 100%;
+    max-width: 1180px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-mv {
+      padding-inline: 2rem;
+    }
+  }
+
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    transform: translateY(-160%);
+    border-radius: 0.125rem;
+    background: var(--color-paper);
+    padding: 0.75rem 1rem;
+    color: var(--color-ink);
+    font-weight: 700;
+    box-shadow: var(--shadow-card);
+    transition: transform 160ms ease;
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  .display-1,
+  .display-hero {
+    font-size: clamp(2.45rem, 5.4vw, 4.35rem);
+    letter-spacing: -0.035em;
+  }
+
+  .hero-shell {
+    padding-block: 3.5rem;
+  }
+
+  .hero-media {
+    max-width: 29rem;
+  }
+
+  .hero-trust {
+    display: flex;
+  }
+
+  @media (min-width: 640px) {
+    .hero-shell {
+      padding-block: 4rem;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1439px) {
+    .display-hero {
+      font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+    }
+
+    .hero-shell {
+      padding-block: 2rem;
+    }
+
+    .hero-media {
+      max-width: 22rem;
+    }
+
+    .hero-trust {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .hero-shell {
+      padding-block: 6rem;
+    }
+  }
+
+  /* Variante para títulos de hero longos (LP): mantém o CTA principal na primeira
+     dobra em notebooks de 1440x800, onde o clamp base saltava para 69,6px. */
+  .display-hero--compact {
+    font-size: clamp(2.1rem, 3.9vw, 3.7rem);
+  }
+
+  .display-2 {
+    font-size: clamp(2rem, 3.8vw, 3.1rem);
+  }
+
+  .display-3 {
+    font-size: clamp(1.55rem, 2.5vw, 2rem);
+  }
+
+  .hero-grid {
+    background-image:
+      linear-gradient(to right, rgba(157, 187, 224, 0.12) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(157, 187, 224, 0.12) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: linear-gradient(to bottom, black, transparent 88%);
+  }
+
+  .prose-mv {
+    color: var(--color-text-2);
+    font-size: 1.0125rem;
+    line-height: 1.8;
+  }
+
+  .prose-mv h2 {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: var(--color-ink);
+    font-size: clamp(1.55rem, 2.4vw, 2rem);
+  }
+
+  .prose-mv h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-ink);
+    font-size: 1.2rem;
+  }
+
+  .prose-mv p,
+  .prose-mv ul,
+  .prose-mv ol {
+    margin-block: 1rem;
+  }
+
+  .prose-mv ul {
+    list-style: disc;
+    padding-left: 1.4rem;
+  }
+
+  .prose-mv a {
+    color: var(--color-blue-600);
+    font-weight: 600;
+  }
+
+  .field-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--color-ink);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .field-input {
+    width: 100%;
+    min-height: 3rem;
+    border: 1px solid var(--color-field);
+    border-radius: 0.125rem;
+    background: var(--color-paper);
+    padding: 0.72rem 0.85rem;
+    color: var(--color-text);
+    transition:
+      border-color 160ms ease,
+      box-shadow 160ms ease;
+  }
+
+  .field-input::placeholder {
+    color: #5b6c80;
+  }
+
+  .field-input:hover {
+    border-color: var(--color-blue-600);
+  }
+
+  .field-input:focus {
+    border-color: var(--color-blue-600);
+    box-shadow: 0 0 0 3px rgba(46, 99, 168, 0.35);
+  }
+
+  .field-input:focus-visible {
+    outline: 2px solid var(--color-blue-600);
+    outline-offset: 1px;
+  }
+
+  .field-input[aria-invalid='true'] {
+    border-color: var(--color-ink);
+    box-shadow: inset 4px 0 0 var(--color-ink);
+  }
+
+  .field-error {
+    display: flex;
+    gap: 0.4rem;
+    align-items: flex-start;
+    margin-top: 0.4rem;
+    color: var(--color-ink);
+    font-size: 0.84rem;
+    font-weight: 700;
+  }
+
+  .no-js-only {
+    display: none;
+  }
+
+  html:not(.js) .no-js-only {
+    display: block;
+  }
+
+  html:not(.js) .js-only {
+    display: none;
+  }
+}

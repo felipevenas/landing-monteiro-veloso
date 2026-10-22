@@ -1,0 +1,50 @@
+---
+import { escapeHtml } from '@/shared/lib/html';
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  highlight?: string;
+  description?: string;
+  align?: 'left' | 'center';
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+
+const { id, title, description, align = 'left', tone = 'light', class: className } = Astro.props;
+
+const centered = align === 'center';
+const titleHtml = escapeHtml(title);
+---
+
+<div class:list={[centered ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl', className]}>
+  <span
+    class:list={[
+      'mb-5 block h-px w-12',
+      tone === 'dark' ? 'bg-sky-300/70' : 'bg-blue-500/70',
+      centered && 'mx-auto',
+    ]}
+    aria-hidden="true"
+  ></span>
+  <h2
+    id={id}
+    class:list={[
+      'display-2',
+      tone === 'dark' ? 'text-white' : 'text-ink',
+      centered && 'text-balance',
+    ]}
+    set:html={titleHtml}
+  />
+  {description && (
+    <p
+      class:list={[
+        'mt-5 max-w-2xl text-[1.02rem] leading-relaxed',
+        tone === 'dark' ? 'text-blue-200/85' : 'text-text-2',
+        centered && 'mx-auto',
+      ]}
+    >
+      {description}
+    </p>
+  )}
+</div>

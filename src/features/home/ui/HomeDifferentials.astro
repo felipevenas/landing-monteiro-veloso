@@ -1,0 +1,39 @@
+---
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import Section from '@/shared/ui/Section.astro';
+import SectionHeading from '@/shared/ui/SectionHeading.astro';
+import { homeDifferentials } from '../content';
+---
+
+<Section background="white" labelledby="home-diferenciais-title">
+  <Container>
+    <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      <div>
+        <SectionHeading
+          id="home-diferenciais-title"
+          eyebrow={homeDifferentials.eyebrow}
+          title={homeDifferentials.title}
+          description={homeDifferentials.description}
+        />
+        <div class="mt-7 flex items-start gap-3 border-l-2 border-brand pl-4">
+          <Icon name="lucide:map-pin" size={17} class="mt-0.5 shrink-0 text-brand" />
+          <p class="text-sm leading-snug text-text-2">
+            <strong class="text-ink">Presencial e online.</strong> Atendimento no Comércio, em
+            Salvador, com hora combinada, ou online, em todo o Brasil.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid gap-x-8 gap-y-8 sm:grid-cols-2">
+        {homeDifferentials.items.map((item) => (
+          <div class="border-t border-border pt-4">
+            <Icon name={item.icon} size={19} class="text-brand" />
+            <h3 class="mt-3 font-display text-[1.3rem] text-ink">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-text-2">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Container>
+</Section>

@@ -1,0 +1,34 @@
+---
+type Background = 'white' | 'paper' | 'blue' | 'navy' | 'ink';
+
+interface Props {
+  id?: string;
+  background?: Background;
+  compact?: boolean;
+  class?: string;
+  labelledby?: string;
+}
+
+const { id, background = 'white', compact = false, class: className, labelledby } = Astro.props;
+
+const backgrounds: Record<Background, string> = {
+  white: 'bg-paper',
+  paper: 'bg-paper-alt',
+  blue: 'bg-blue-50',
+  navy: 'bg-navy-900',
+  ink: 'bg-ink',
+};
+---
+
+<section
+  id={id}
+  class:list={[
+    'relative',
+    backgrounds[background],
+    compact ? 'py-14 sm:py-16' : 'py-16 sm:py-20 lg:py-28',
+    className,
+  ]}
+  aria-labelledby={labelledby}
+>
+  <slot />
+</section>

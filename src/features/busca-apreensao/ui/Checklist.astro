@@ -1,0 +1,47 @@
+---
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import Section from '@/shared/ui/Section.astro';
+import SectionHeading from '@/shared/ui/SectionHeading.astro';
+import { checklist } from '../content';
+---
+
+<Section background="blue" labelledby="checklist-title">
+  <Container>
+    <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14">
+      <div>
+        <SectionHeading
+          id="checklist-title"
+          eyebrow={checklist.eyebrow}
+          title={checklist.title}
+          highlight="informações"
+          description={checklist.description}
+        />
+        <p class="mt-5 inline-flex items-start gap-2 text-xs leading-relaxed text-text-2">
+          <Icon name="lucide:shield-check" size={16} class="mt-0.5 shrink-0 text-blue-600" />
+          {checklist.note}
+        </p>
+      </div>
+
+      <div class="border border-border border-l-2 border-l-blue-600 bg-paper p-6 sm:p-8">
+        <p class="text-sm font-semibold text-blue-600">Checklist inicial</p>
+        <ul class="mt-5 space-y-4">
+          {checklist.items.map((item) => (
+            <li class="flex items-start gap-3 text-sm leading-relaxed text-text">
+              <Icon name="lucide:check" size={15} class="mt-0.5 shrink-0 text-brand" />
+              {item}
+            </li>
+          ))}
+        </ul>
+        <div class="mt-7 border-t border-border pt-5">
+          <a
+            href="#contato"
+            class="inline-flex min-h-11 w-full items-center justify-center rounded-[2px] bg-brand px-5 text-sm font-bold text-white transition hover:bg-navy-800"
+          >
+            Iniciar uma conversa
+          </a>
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/shared/ui/Button.astro';
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import { site } from '@/shared/config/site';
+import { createMetadata } from '@/shared/seo/metadata';
+
+const metadata = createMetadata({
+  title: 'Página não encontrada | Monteiro Veloso Advogados',
+  description: 'A página que você procura não existe ou foi movida.',
+  path: '/404.html',
+  noindex: true,
+});
+---
+
+<BaseLayout metadata={metadata}>
+  <section class="bg-paper py-20 sm:py-28">
+    <Container class="max-w-3xl text-center">
+      <p class="font-display text-[5rem] leading-none text-blue-500" aria-hidden="true">
+        404
+      </p>
+      <h1 class="display-2 mt-2 text-ink">Esta página não foi encontrada.</h1>
+      <p class="mx-auto mt-5 max-w-xl text-[1.02rem] leading-relaxed text-text-2">
+        O endereço pode ter mudado ou o link pode estar incompleto. Você pode voltar ao início,
+        conhecer a atuação em busca e apreensão de veículo ou falar com a equipe.
+      </p>
+      <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+        <Button href="/" variant="primary" size="md">
+          <Icon name="lucide:arrow-left" size={17} />
+          Voltar ao início
+        </Button>
+        <Button href="/#contato" variant="outline" size="md">
+          Falar com a equipe
+          <Icon name="lucide:arrow-right" size={16} />
+        </Button>
+        <Button href={site.phone.whatsapp} variant="ghost" size="md" dataWa dataWaLocation="final">
+          <Icon name="lucide:message-circle" size={17} />
+          WhatsApp
+        </Button>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

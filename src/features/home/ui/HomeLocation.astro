@@ -1,0 +1,117 @@
+---
+import Button from '@/shared/ui/Button.astro';
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import Section from '@/shared/ui/Section.astro';
+import SectionHeading from '@/shared/ui/SectionHeading.astro';
+import MapEmbed from '@/features/map/ui/MapEmbed.astro';
+import { publishable } from '@/shared/config/field';
+import { mapQuery, site } from '@/shared/config/site';
+import { homeLocation } from '../content';
+
+const hours = publishable(site.hours);
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery()}`;
+---
+
+<Section id="localizacao" background="paper" labelledby="home-localizacao-title">
+  <Container>
+    <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16">
+      <div>
+        <SectionHeading
+          id="home-localizacao-title"
+          eyebrow={homeLocation.eyebrow}
+          title={homeLocation.title}
+          description={homeLocation.description}
+        />
+
+        <div class="mt-7 space-y-4">
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 shrink-0 text-brand">
+              <Icon name="lucide:map-pin" size={17} />
+            </span>
+            <div class="flex-1 border-t border-border pt-3">
+              <p class="text-sm font-bold text-ink">{homeLocation.address}</p>
+              <p class="mt-1 text-sm text-text-2">{homeLocation.district}</p>
+              <p class="text-sm text-text-2">{homeLocation.postalCode}</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 shrink-0 text-brand">
+              <Icon name="lucide:video" size={17} />
+            </span>
+            <div class="flex-1 border-t border-border pt-3">
+              <p class="text-sm font-bold text-ink">Atendimento online</p>
+              <p class="mt-1 text-sm leading-relaxed text-text-2">
+                Fora de Salvador, o atendimento é feito por videochamada, WhatsApp ou e-mail, em
+                todo o Brasil.
+              </p>
+            </div>
+          </div>
+
+          {hours && (
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 shrink-0 text-brand">
+                <Icon name="lucide:clock" size={17} />
+              </span>
+              <div class="flex-1 border-t border-border pt-3">
+                <p class="text-sm font-bold text-ink">Horário de atendimento</p>
+                <p class="mt-1 text-sm text-text-2">{hours}</p>
+              </div>
+            </div>
+          )}
+
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 shrink-0 text-brand">
+              <Icon name="lucide:phone" size={17} />
+            </span>
+            <div class="flex-1 border-t border-border pt-3">
+              <p class="text-sm font-bold text-ink">Contato direto</p>
+              <p class="mt-1 text-sm text-text-2">
+                <a class="transition hover:text-brand" href={`tel:${site.phone.e164}`}>
+                  {site.phone.display}
+                </a>
+              </p>
+              <p class="text-sm text-text-2">
+                <a class="transition hover:text-brand" href={`mailto:${site.email}`}>
+                  {site.email}
+                </a>
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 shrink-0 text-brand">
+              <Icon name="lucide:message-circle" size={17} />
+            </span>
+            <div class="flex-1 border-t border-border pt-3">
+              <p class="text-sm font-bold text-ink">Antes de visitar</p>
+              <p class="mt-1 max-w-sm text-sm leading-relaxed text-text-2">
+                Combine o horário com a equipe pelo WhatsApp para que o atendimento seja organizado.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+          <Button
+            href={site.phone.whatsapp}
+            variant="primary"
+            size="md"
+            dataWa
+            dataWaLocation="final"
+          >
+            <Icon name="lucide:message-circle" size={18} />
+            Combinar horário
+          </Button>
+          <Button href={mapsUrl} variant="outline" size="md" target="_blank">
+            <Icon name="lucide:navigation" size={17} />
+            Abrir no Maps
+          </Button>
+        </div>
+      </div>
+
+      <MapEmbed />
+    </div>
+  </Container>
+</Section>

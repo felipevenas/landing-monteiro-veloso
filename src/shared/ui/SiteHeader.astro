@@ -1,0 +1,122 @@
+---
+import Button from '@/shared/ui/Button.astro';
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import Logo from '@/shared/ui/Logo.astro';
+import { routes } from '@/shared/config/routes';
+import { site } from '@/shared/config/site';
+
+const isLanding = Astro.url.pathname.startsWith('/defesa-busca-e-apreensao-veiculo');
+const isHome = Astro.url.pathname === '/';
+const navigation = isLanding
+  ? site.navLanding
+  : site.navHome.map((item) => ({
+      ...item,
+      href: isHome ? item.href : `/${item.href}`,
+    }));
+---
+
+<header class="sticky top-0 z-50 border-b border-white/10 bg-ink/95 backdrop-blur-md">
+  <Container class="flex min-h-20 items-center justify-between gap-3 py-2">
+    <a href={routes.home} class="shrink-0 rounded-sm" aria-label={`${site.name}: página inicial`}>
+      <Logo height={64} class="h-16 w-auto" />
+    </a>
+
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">
+      {navigation.map((item) => (
+        <a
+          href={item.href}
+          class="text-[0.82rem] font-semibold tracking-[0.01em] text-blue-200/90 transition hover:text-white"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <Button
+        href={site.phone.whatsapp}
+        variant="whatsapp"
+        size="md"
+        dataWa
+        dataWaLocation="header"
+        class="header-wa inline-flex border border-white/40"
+      >
+        <Icon name="lucide:message-circle" size={17} />
+        WhatsApp
+      </Button>
+
+      <details class="group relative lg:hidden">
+        <summary
+          class="flex size-11 cursor-pointer list-none items-center justify-center rounded-[2px] border border-white/40 text-white transition hover:bg-white/10"
+          aria-label="Abrir menu de navegação"
+        >
+          <Icon name="lucide:menu" size={20} class="group-open:hidden" />
+          <Icon name="lucide:x" size={20} class="hidden group-open:block" />
+        </summary>
+        <div class="absolute right-0 top-[calc(100%+0.6rem)] w-[min(19rem,calc(100vw-2.5rem))] rounded-[2px] border border-border bg-paper p-3 shadow-soft">
+          <nav class="flex flex-col" aria-label="Navegação móvel">
+            {navigation.map((item) => (
+              <a
+                href={item.href}
+                class="rounded-[2px] px-3 py-3 text-sm font-semibold text-ink transition hover:bg-blue-50"
+              >
+                {item.label}
+              </a>
+            ))}
+            <a
+              href={site.phone.whatsapp}
+              class="mt-2 inline-flex min-h-11 items-center justify-center gap-2 rounded-[2px] bg-brand px-4 text-sm font-bold text-white"
+              data-wa
+              data-wa-location="header"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name="lucide:message-circle" size={17} />
+              Falar pelo WhatsApp
+            </a>
+          </nav>
+        </div>
+      </details>
+    </div>
+  </Container>
+</header>
+
+<script>
+  const headerMenu = document.querySelector<HTMLDetailsElement>('header details');
+
+  if (headerMenu) {
+    const summary = headerMenu.querySelector('summary');
+
+    const close = () => {
+      headerMenu.open = false;
+    };
+
+    headerMenu.addEventListener('click', (event) => {
+      if ((event.target as Element | null)?.closest('a')) close();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && headerMenu.open) {
+        close();
+        summary?.focus();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (headerMenu.open && !headerMenu.contains(event.target as Node)) close();
+    });
+  }
+</script>
+
+<style is:global>
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  @media (max-width: 359px) {
+    .header-wa {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,141 @@
+---
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import Logo from '@/shared/ui/Logo.astro';
+import { publishable } from '@/shared/config/field';
+import { routes } from '@/shared/config/routes';
+import { fullAddress, mapQuery, site } from '@/shared/config/site';
+
+const oab = publishable(site.lawyer.oab);
+const year = new Date().getFullYear();
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery()}`;
+const credit = `Responsável: ${site.lawyer.name}, ${site.lawyer.role}${oab ? ` / OAB/BA ${oab}` : ''}. Conteúdo em conformidade com o Provimento nº 205/2021 da OAB.`;
+---
+
+<footer class="bg-ink text-blue-200/80">
+  <Container class="py-14 sm:py-16">
+    <div class="grid gap-10 border-b border-white/10 pb-12 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_1fr]">
+      <div>
+        <a href={routes.home} class="inline-block" aria-label={`${site.name}: página inicial`}>
+          <Logo height={76} class="h-[76px] w-auto" loading="lazy" />
+        </a>
+        <p class="mt-5 max-w-sm text-sm leading-relaxed text-blue-200/75">
+          Advocacia com escuta, clareza e responsabilidade. Atuação concentrada em Direito Bancário,
+          na defesa de pessoas físicas nas relações com instituições financeiras.
+        </p>
+        <div class="mt-5 flex items-center gap-3">
+          <a
+            href={site.social.instagram}
+            class="inline-flex size-11 items-center justify-center rounded-[2px] border border-white/35 text-blue-200 transition hover:border-white/60 hover:text-white"
+            aria-label="Instagram do escritório"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon name="lucide:instagram" size={18} />
+          </a>
+          <a
+            href={site.social.instagramLawyer}
+            class="inline-flex size-11 items-center justify-center rounded-[2px] border border-white/35 text-blue-200 transition hover:border-white/60 hover:text-white"
+            aria-label="Instagram da Dra. Roberta Veloso"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon name="lucide:instagram" size={18} />
+          </a>
+          <a
+            href={site.phone.whatsapp}
+            class="inline-flex size-11 items-center justify-center rounded-[2px] border border-white/35 text-blue-200 transition hover:border-white/60 hover:text-white"
+            aria-label="WhatsApp do escritório"
+            data-wa
+            data-wa-location="footer"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon name="lucide:message-circle" size={18} />
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-sm font-semibold text-sky-300">Navegação</h2>
+        <nav class="mt-4 flex flex-col gap-3" aria-label="Navegação do rodapé">
+          <a class="py-1.5 text-sm transition hover:text-white" href={routes.home}>
+            Início
+          </a>
+          <a class="py-1.5 text-sm transition hover:text-white" href="/#escritorio">
+            O escritório
+          </a>
+          <a class="py-1.5 text-sm transition hover:text-white" href="/#areas">
+            Áreas de atuação
+          </a>
+          <a class="py-1.5 text-sm transition hover:text-white" href="/#duvidas">
+            Dúvidas
+          </a>
+          <a class="py-1.5 text-sm transition hover:text-white" href="/#localizacao">
+            Onde estamos
+          </a>
+          <a class="py-1.5 text-sm transition hover:text-white" href="/#contato">
+            Contato
+          </a>
+          <a
+            class="mt-2 border-t border-white/10 pt-3 text-sm font-semibold text-white transition hover:text-sky-300"
+            href={routes.landing}
+          >
+            Busca e apreensão de veículo
+          </a>
+          <a class="text-sm transition hover:text-white" href={routes.privacy}>
+            Política de privacidade
+          </a>
+          <button
+            type="button"
+            class="py-1.5 text-left text-sm transition hover:text-white"
+            data-consent-open
+          >
+            Preferências de cookies
+          </button>
+        </nav>
+      </div>
+
+      <div>
+        <h2 class="text-sm font-semibold text-sky-300">Contato</h2>
+        <address class="mt-4 not-italic text-sm leading-relaxed text-blue-200/75">
+          {fullAddress()}
+        </address>
+        <div class="mt-4 flex flex-col gap-2 text-sm">
+          <a class="py-1 transition hover:text-white" href={`tel:${site.phone.e164}`}>
+            {site.phone.display}
+          </a>
+          <a class="py-1 transition hover:text-white" href={`mailto:${site.email}`}>
+            {site.email}
+          </a>
+          <a
+            class="py-1 transition hover:text-white"
+            href={mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ver no Google Maps
+          </a>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-blue-200/75">
+          Atendimento presencial em Salvador e online em {site.serviceArea}.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-5 pt-8 text-xs leading-relaxed text-blue-200/60">
+      <p class="max-w-4xl">
+        As informações deste site têm caráter informativo e não constituem promessa de resultado nem
+        substituem a análise individualizada de cada caso. Cada situação depende do contrato, do
+        processo e das circunstâncias concretas.
+      </p>
+      <p class="max-w-4xl">{credit}</p>
+      <div class="flex flex-col justify-between gap-2 border-t border-white/10 pt-5 sm:flex-row">
+        <p>
+          © {year} {site.name}. Todos os direitos reservados.
+        </p>
+        <p>CNPJ {site.cnpj}</p>
+      </div>
+    </div>
+  </Container>
+</footer>

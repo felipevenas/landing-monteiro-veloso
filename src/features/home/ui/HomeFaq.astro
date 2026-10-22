@@ -1,0 +1,53 @@
+---
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import Section from '@/shared/ui/Section.astro';
+import SectionHeading from '@/shared/ui/SectionHeading.astro';
+import { homeFaq } from '../content';
+---
+
+<Section id="duvidas" background="paper" labelledby="home-faq-title">
+  <Container>
+    <div class="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+      <div>
+        <SectionHeading
+          id="home-faq-title"
+          eyebrow="Dúvidas frequentes"
+          title="Perguntas sobre o atendimento"
+        />
+        <p class="mt-5 text-sm leading-relaxed text-text-2">
+          Não encontrou a sua dúvida? O contato inicial serve justamente para isso.
+        </p>
+        <a
+          href="#contato"
+          class="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-brand underline decoration-blue-200 underline-offset-4 hover:text-navy-800"
+        >
+          Falar com a equipe
+          <Icon name="lucide:arrow-up-right" size={16} />
+        </a>
+      </div>
+
+      <div class="border-t border-border">
+        {homeFaq.map((item) => (
+          <details class="group border-b border-border">
+            <summary class="flex cursor-pointer list-none items-start justify-between gap-5 py-5 text-left">
+              <span class="font-display text-[1.15rem] leading-snug text-ink sm:text-[1.22rem]">
+                {item.question}
+              </span>
+              <span class="mt-0.5 shrink-0 text-brand transition group-open:rotate-45">
+                <Icon name="lucide:plus" size={15} />
+              </span>
+            </summary>
+            <p class="max-w-2xl pb-5 pr-10 text-sm leading-relaxed text-text-2">{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
