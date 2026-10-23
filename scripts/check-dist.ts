@@ -1,7 +1,10 @@
 import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
+import { loadEnv } from 'vite';
 
 const allowPlaceholders = process.argv.includes('--allow-placeholders');
+const env = loadEnv('production', process.cwd(), '');
+const apiKey = (process.env.GOOGLE_PLACES_API_KEY || env.GOOGLE_PLACES_API_KEY || '').trim();
 const dist = path.resolve('dist');
 const errors: string[] = [];
 const warnings: string[] = [];
@@ -80,7 +83,24 @@ if (!htaccess.includes('ErrorDocument 404 /404.html')) {
   errors.push('.htaccess sem ErrorDocument para /404.html.');
 }
 
-const textFiles = (await walk(dist)).filter((file) => /\.(html|js|css|txt|xml|json)$/i.test(file));
+const allFiles = await walk(dist);
+const textFiles = allFiles.filter((file) => /\.(html|js|css|txt|xml|json)$/i.test(file));
+
+if (allFiles.some((file) => file.endsWith('.map'))) {
+  errors.push('dist contém source maps; remova-os antes do deploy.');
+}
+
+if (apiKey) {
+  const keyBytes = Buffer.from(apiKey, 'utf8');
+  for (const file of allFiles) {
+    const content = await readFile(file);
+    if (content.includes(keyBytes)) {
+      errors.push(
+        `${path.relative(dist, file).replaceAll('\\', '/')}: contém o valor literal da GOOGLE_PLACES_API_KEY.`,
+      );
+    }
+  }
+}
 
 for (const file of textFiles) {
   let content: string;
@@ -103,6 +123,9 @@ for (const file of textFiles) {
   if (content.includes('NEXT_PUBLIC_')) {
     errors.push(`${relative}: contém variável NEXT_PUBLIC_.`);
   }
+  if (/AIza[0-9A-Za-z_-]{35}/.test(content)) {
+    errors.push(`${relative}: contém possível chave da API do Google exposta no bundle.`);
+  }
   if (/https?:\/\/(localhost|127\.0\.0\.1)/.test(content)) {
     errors.push(`${relative}: contém URL de localhost.`);
   }
@@ -120,7 +143,8 @@ for (const file of htmlFiles) {
 
   const visibleHtml = html
     .replace(/<script[\s\S]*?<\/script>/gi, '')
-    .replace(/<style[\s\S]*?<\/style>/gi, '');
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/\s(?:href|src|srcset|action)="[^"]*"/gi, ' ');
   if (/[\p{L}]\?[\p{L}]/u.test(visibleHtml)) {
     errors.push(`${relative}: possível caractere corrompido (palavra com "?").`);
   }
@@ -164,6 +188,10 @@ for (const file of htmlFiles) {
       const forbidden = findForbiddenKeys(parsed);
       if (forbidden.length > 0) {
         errors.push(`${relative}: JSON-LD contém ${[...new Set(forbidden)].join(', ')}.`);
+      }
+      const serialized = JSON.stringify(parsed).replace(/https?:\/\/[^"]+/g, ' ');
+      if (/[\p{L}]\?[\p{L}]/u.test(serialized)) {
+        errors.push(`${relative}: JSON-LD com possível caractere corrompido (palavra com "?").`);
       }
     } catch {
       errors.push(`${relative}: JSON-LD inválido.`);

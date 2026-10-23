@@ -1,6 +1,13 @@
-import { configField, type ConfigField } from './field';
+import { configField, publishable, type ConfigField } from './field';
 
 export const SITE_URL = 'https://monteiroveloso.com';
+
+export const businessHours = {
+  days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+  opens: '08:00',
+  closes: '16:30',
+  label: 'Segunda a sexta, das 8h às 16h30',
+} as const;
 
 export const site = {
   name: 'Monteiro Veloso Advogados',
@@ -10,7 +17,7 @@ export const site = {
   url: SITE_URL,
   domain: 'monteiroveloso.com',
   description:
-    'Escritório de advocacia em Salvador com atuação concentrada em Direito Bancário, na defesa de pessoas físicas nas relações com instituições financeiras: financiamento de veículo, busca e apreensão e revisional de contrato. Atendimento presencial em Salvador e online em todo o Brasil.',
+    'Advocacia em Salvador dedicada à defesa de pessoas físicas contra bancos e financeiras: busca e apreensão de veículo, revisional de financiamento e cobrança abusiva. Atendimento presencial em Salvador e online em todo o Brasil.',
   email: 'robertavelosoadv@gmail.com',
   lawyer: {
     name: 'Roberta Victoria Monteiro Veloso Santos',
@@ -42,11 +49,16 @@ export const site = {
     postalCode: '40015-000',
     country: 'BR',
   },
-  hours: configField('', 'Horário de atendimento', false, 'Ex.: segunda a sexta, 9h às 18h.'),
+  hours: configField(
+    businessHours.label,
+    'Horário de atendimento',
+    true,
+    'Ex.: segunda a sexta, 9h às 18h.',
+  ),
   geo: {
     latitude: configField('', 'Latitude', false),
     longitude: configField('', 'Longitude', false),
-    placeId: configField('', 'Google Place ID', false),
+    placeId: configField('ChIJYYCApFkbFgcRJoXGIZQ1Mj8', 'Google Place ID', false),
   },
   social: {
     instagram: 'https://www.instagram.com/monteirovelosoadvogados/',
@@ -54,15 +66,14 @@ export const site = {
   },
   serviceArea: 'todo o Brasil',
   navHome: [
-    { label: 'O escritório', href: '#escritorio' },
-    { label: 'Áreas de atuação', href: '#areas' },
-    { label: 'Dúvidas', href: '#duvidas' },
-    { label: 'Onde estamos', href: '#localizacao' },
+    { label: 'Serviços', href: '#areas' },
+    { label: 'Avaliações', href: '#avaliacoes' },
+    { label: 'Instagram', href: '#instagram' },
+    { label: 'Localização', href: '#localizacao' },
     { label: 'Contato', href: '#contato' },
   ],
   navLanding: [
-    { label: 'O problema', href: '/defesa-busca-e-apreensao-veiculo/#problema' },
-    { label: 'Como funciona', href: '/defesa-busca-e-apreensao-veiculo/#como-funciona' },
+    { label: 'Prazos', href: '/defesa-busca-e-apreensao-veiculo/#prazo' },
     { label: 'Serviços', href: '/defesa-busca-e-apreensao-veiculo/#servicos' },
     { label: 'Dúvidas', href: '/defesa-busca-e-apreensao-veiculo/#duvidas' },
   ],
@@ -95,4 +106,14 @@ export function mapQuery(): string {
   return encodeURIComponent(
     `${site.address.street}, ${site.address.number}, ${site.address.district}, ${site.address.city} - ${site.address.state}, ${site.address.postalCode}`,
   );
+}
+
+export function googlePlaceUrl(): string | null {
+  const placeId = publishable(site.geo.placeId);
+  return placeId ? `https://www.google.com/maps/place/?q=place_id:${placeId}` : null;
+}
+
+export function googleReviewsUrl(): string | null {
+  const placeId = publishable(site.geo.placeId);
+  return placeId ? `https://search.google.com/local/reviews?placeid=${placeId}` : null;
 }

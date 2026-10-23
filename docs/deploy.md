@@ -6,8 +6,10 @@ O site é 100% estático. O build gera `dist/` com HTML, CSS, JS, imagens otimiz
 
 Preencha:
 
-- `src/shared/config/site.ts`: horário, sala, coordenadas/Place ID (quando houver). OAB/BA já preenchida (78.424).
+- `src/shared/config/site.ts`: horário (já preenchido), sala, coordenadas e Place ID (já preenchido).
 - `.env`: `PUBLIC_LEAD_DELIVERY` (`mailto` ou `webhook`), `PUBLIC_N8N_WEBHOOK_URL` (só no modo `webhook`), `PUBLIC_GTM_ID` e, se necessário, `PUBLIC_FORM_ENABLED`.
+- `.env`: `GOOGLE_PLACES_API_KEY` (chave da Places API New, somente build) e, se quiser sobrescrever, `GOOGLE_PLACE_ID`.
+- Ao mudar o escopo do consentimento (por exemplo, incluir Instagram), atualize `PUBLIC_CONSENT_VERSION` para que os visitantes sejam perguntados novamente.
 
 Confirme:
 
@@ -19,6 +21,17 @@ npm test
 npm run test:e2e
 ```
 
+## 1.1 Avaliações do Google
+
+A seção `#avaliacoes` usa a Places API (New) apenas no build:
+
+1. No Google Cloud, habilite **Places API (New)** e crie uma chave restrita a essa API.
+2. Coloque a chave em `GOOGLE_PLACES_API_KEY`, sem prefixo `PUBLIC_`. Ela nunca deve ir para o navegador.
+3. O Place ID fica em `site.geo.placeId` (ou em `GOOGLE_PLACE_ID`).
+4. Rode `npm run fetch:reviews` para atualizar `src/features/reviews/data/reviews.json` a qualquer momento.
+
+O script mantém o último JSON válido se a API falhar. Se não houver chave e não houver cache, a seção mostra um caminho alternativo para o perfil no Google, mas o build de produção é bloqueado pelo `check:launch`. A API devolve no máximo 5 avaliações. Rebuild mensal é recomendado para respeitar o limite de cache de 30 dias do Google Maps Platform.
+
 ## 2. Build
 
 ```bash
@@ -27,10 +40,11 @@ npm run build
 
 O comando:
 
-1. executa `check:launch` (falha se OAB ou webhook obrigatório estiverem vazios);
-2. roda `astro check`;
-3. gera `dist/`;
-4. executa `check:dist` (H1, canonical, JSON-LD, 404, sitemap, placeholders, arquivos).
+1. executa `check:launch` (falha se OAB, Place ID ou chave da Places API estiverem vazios);
+2. executa `fetch:reviews` (atualiza as avaliações do Google, com fallback para o cache);
+3. roda `astro check`;
+4. gera `dist/`;
+5. executa `check:dist` (H1, canonical, JSON-LD, 404, sitemap, placeholders, chave exposta e arquivos).
 
 Para revisar antes de ter todos os dados:
 
@@ -82,8 +96,9 @@ Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains
 - `/sitemap-index.xml` e `/sitemap-0.xml` → 200.
 - `/robots.txt` → 200 e aponta para o sitemap.
 - Formulário → no modo `mailto`, abre o e-mail do cliente com o destinatário e os dados preenchidos; no modo `webhook`, o lead chega ao n8n e retorna 202.
-- Consentimento recusado → nenhuma requisição ao GTM.
-- Consentimento aceito → GTM/GA4 no DebugView.
+- Consentimento recusado → nenhuma requisição ao GTM e nenhum embed do Instagram.
+- Consentimento aceito → GTM/GA4 no DebugView e vídeos do Instagram carregados ao chegar na seção.
+- Home: avaliações reais do Google, horário “Segunda a sexta, das 8h às 16h30” e float de WhatsApp verde.
 - Rich Results Test: `FAQPage`, `LegalService`, `BreadcrumbList` válidos.
 - Lighthouse mobile: 95+ em Performance, Accessibility, Best Practices e SEO.
 - `securityheaders.com`: headers esperados; CSP ainda em Report-Only.
@@ -104,7 +119,8 @@ A CSP está em **Report-Only** para não quebrar GTM/GA4 e o mapa antes da valid
 1. adicione o host real do n8n em `connect-src` (apenas no modo `webhook`);
 2. valide GTM/GA4 e Google Ads;
 3. valide o iframe do Google Maps;
-4. avalie remover `'unsafe-inline'` com nonce/GTM server-side.
+4. valide o script e o iframe do Instagram (`www.instagram.com`, `*.cdninstagram.com`, `*.fbcdn.net`);
+5. avalie remover `'unsafe-inline'` com nonce/GTM server-side.
 
 ## 8. Acentos e charset
 
@@ -125,7 +141,7 @@ Se letras como `ç`, `ã` ou `õ` aparecerem quebradas:
 
 - Número de OAB/BA visível no rodapé e no schema.
 - Nenhuma promessa de resultado, preço, desconto ou consulta gratuita.
-- Nenhum depoimento, lista de clientes ou caso ganho.
+- A seção de avaliações exibe comentários públicos do Google por decisão da cliente; manter o aviso de que são opiniões de clientes e revisar o conteúdo periodicamente.
 - Aviso informativo no rodapé.
 - Fotos com direitos de uso confirmados.
 - Política de privacidade revisada pelo escritório.
