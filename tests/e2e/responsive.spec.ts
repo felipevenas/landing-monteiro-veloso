@@ -27,7 +27,7 @@ for (const width of [320, 360, 390, 768, 1024, 1280, 1366, 1440, 1920, 2560]) {
       );
     }
 
-    await page.goto('/defesa-busca-e-apreensao-veiculo/');
+    await page.goto('/');
     await page.locator('[data-map-load]').scrollIntoViewIfNeeded();
     const map = await page.evaluate(() => {
       const button = document.querySelector<HTMLElement>('[data-map-load]');
