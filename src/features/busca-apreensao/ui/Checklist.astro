@@ -6,40 +6,66 @@ import SectionHeading from '@/shared/ui/SectionHeading.astro';
 import { checklist } from '../content';
 ---
 
-<Section background="blue" labelledby="checklist-title">
+<Section id="documentos" background="blue" labelledby="checklist-title">
   <Container>
-    <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14">
+    <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
       <div>
         <SectionHeading
           id="checklist-title"
           eyebrow={checklist.eyebrow}
+
           title={checklist.title}
-          highlight="informações"
           description={checklist.description}
         />
-        <p class="mt-5 inline-flex items-start gap-2 text-xs leading-relaxed text-text-2">
+
+        <div class="mt-7 border-l-2 border-brand pl-4">
+          <p class="text-sm font-bold text-ink">{checklist.reassurance}</p>
+        </div>
+
+        <p class="mt-6 inline-flex max-w-sm items-start gap-2 text-xs leading-relaxed text-text-2">
           <Icon name="lucide:shield-check" size={16} class="mt-0.5 shrink-0 text-blue-600" />
           {checklist.note}
         </p>
       </div>
 
-      <div class="border border-border border-l-2 border-l-blue-600 bg-paper p-6 sm:p-8">
-        <p class="text-sm font-semibold text-blue-600">Checklist inicial</p>
-        <ul class="mt-5 space-y-4">
-          {checklist.items.map((item) => (
-            <li class="flex items-start gap-3 text-sm leading-relaxed text-text">
-              <Icon name="lucide:check" size={15} class="mt-0.5 shrink-0 text-brand" />
-              {item}
-            </li>
-          ))}
-        </ul>
-        <div class="mt-7 border-t border-border pt-5">
-          <a
-            href="#contato"
-            class="inline-flex min-h-11 w-full items-center justify-center rounded-[2px] bg-brand px-5 text-sm font-bold text-white transition hover:bg-navy-800"
-          >
-            Iniciar uma conversa
-          </a>
+      <div class="max-w-xl">
+        <div class="w-44 border border-b-0 border-border bg-paper px-4 py-2 text-[0.6rem] font-bold uppercase tracking-[0.18em] text-blue-600">
+          {checklist.folderLabel}
+        </div>
+        <div class="border border-border bg-paper">
+          <div class="flex items-center justify-between gap-4 border-b border-border px-5 py-3">
+            <p class="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-text-2">
+              Checklist de análise
+            </p>
+            <p class="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-blue-600">
+              {checklist.folderIndex}
+            </p>
+          </div>
+
+          <ul class="divide-y divide-border px-5">
+            {checklist.items.map((item, index) => (
+              <li class="flex items-start gap-4 py-4">
+                <span
+                  class="mt-0.5 font-display text-sm leading-none text-blue-200"
+                  aria-hidden="true"
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <span class="flex-1 text-sm leading-relaxed text-text">{item}</span>
+                <Icon name="lucide:check" size={15} class="mt-1 shrink-0 text-brand" />
+              </li>
+            ))}
+          </ul>
+
+          <div class="border-t border-border p-5">
+            <a
+              href="#contato"
+              class="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-[2px] bg-brand px-5 text-sm font-bold text-white transition hover:bg-navy-800"
+            >
+              {checklist.cta}
+              <Icon name="lucide:arrow-right" size={16} />
+            </a>
+          </div>
         </div>
       </div>
     </div>

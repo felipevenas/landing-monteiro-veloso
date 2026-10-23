@@ -2,7 +2,7 @@
 import Button from '@/shared/ui/Button.astro';
 import Container from '@/shared/ui/Container.astro';
 import Icon from '@/shared/ui/Icon.astro';
-import Logo from '@/shared/ui/Logo.astro';
+import LogoMark from '@/shared/ui/LogoMark.astro';
 import { routes } from '@/shared/config/routes';
 import { site } from '@/shared/config/site';
 
@@ -19,7 +19,7 @@ const navigation = isLanding
 <header class="sticky top-0 z-50 border-b border-white/10 bg-ink/95 backdrop-blur-md">
   <Container class="flex min-h-20 items-center justify-between gap-3 py-2">
     <a href={routes.home} class="shrink-0 rounded-sm" aria-label={`${site.name}: página inicial`}>
-      <Logo height={64} class="h-16 w-auto" />
+      <LogoMark height={44} class="h-11 w-auto" />
     </a>
 
     <nav class="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">
@@ -34,6 +34,16 @@ const navigation = isLanding
     </nav>
 
     <div class="flex items-center gap-3">
+      {isLanding && (
+        <a
+          href={routes.home}
+          class="inline-flex size-11 shrink-0 items-center justify-center rounded-[2px] border border-white/40 text-blue-200 transition hover:bg-white/10 hover:text-white"
+          aria-label="Ir para a página inicial"
+        >
+          <Icon name="lucide:house" size={18} />
+        </a>
+      )}
+
       <Button
         href={site.phone.whatsapp}
         variant="whatsapp"

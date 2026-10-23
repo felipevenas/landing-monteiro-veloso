@@ -6,7 +6,7 @@ test.describe('Landing de busca e apreensão', () => {
   });
 
   test('entrega HTML único, canonical, schema e FAQ visível', async ({ page }) => {
-    await expect(page).toHaveTitle(/Busca e apreensão de veículo em Salvador/);
+    await expect(page).toHaveTitle(/Carro apreendido/);
     await expect(page.locator('main h1')).toHaveCount(1);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
@@ -57,6 +57,7 @@ test.describe('Landing de busca e apreensão', () => {
   });
 
   test('mapa carrega sob clique sem estourar o card', async ({ page }) => {
+    await page.goto('/');
     await page.getByRole('button', { name: 'Aceitar', exact: true }).click();
     await page.locator('[data-map-load]').scrollIntoViewIfNeeded();
     await page.getByRole('button', { name: 'Carregar mapa' }).click();
@@ -95,7 +96,43 @@ test.describe('Landing de busca e apreensão', () => {
   test('menu móvel abre e leva para a seção', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.getByLabel('Abrir menu de navegação').click();
-    await expect(page.getByRole('link', { name: 'O problema' })).toBeVisible();
+    await page.locator('header details').getByRole('link', { name: 'Prazos' }).click();
+    await expect(page).toHaveURL(/#prazo$/);
+  });
+
+  test('WhatsApp flutuante fica visível no mobile após o consentimento', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Aceitar', exact: true }).click();
+
+    const float = page.locator('[data-wa-location="float"]');
+    await expect(float).toBeVisible();
+    const box = await float.boundingBox();
+    expect(box?.width ?? 0).toBeGreaterThanOrEqual(44);
+    expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
+    expect((box?.x ?? 0) + (box?.width ?? 0)).toBeLessThanOrEqual(390);
+    expect(await float.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe(
+      'rgb(37, 211, 102)',
+    );
+  });
+
+  test('Instagram só carrega o embed depois do consentimento', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('script[src*="instagram.com/embed.js"]')).toHaveCount(0);
+    await expect(page.getByText(/Os vídeos são carregados pelo Instagram/)).toBeVisible();
+
+    await page.getByRole('button', { name: 'Aceitar', exact: true }).click();
+    await page.locator('#instagram').scrollIntoViewIfNeeded();
+
+    await expect(page.locator('script[src*="instagram.com/embed.js"]')).toHaveCount(1);
+
+    await page.locator('footer').getByRole('button', { name: 'Preferências de cookies' }).click();
+    await expect(page.locator('html')).toHaveAttribute('data-consent', 'undecided');
+    await expect(page.locator('script[src*="instagram.com/embed.js"]')).toHaveCount(0);
+    await expect(page.getByRole('link', { name: /Ver o post 1 no Instagram/ })).toBeVisible();
+
+    await page.getByRole('button', { name: 'Aceitar', exact: true }).click();
+    await expect.poll(() => page.locator('#instagram iframe').count()).toBeGreaterThan(0);
   });
 });
 
@@ -103,7 +140,7 @@ test.describe('Home, privacidade e 404', () => {
   test('home é independente e só expõe a landing no rodapé', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('main h1')).toHaveCount(1);
-    await expect(page).toHaveTitle(/Monteiro Veloso Advogados/);
+    await expect(page).toHaveTitle(/Monteiro Veloso/);
 
     const navLinks = await page
       .locator('header nav a')
@@ -112,18 +149,20 @@ test.describe('Home, privacidade e 404', () => {
     expect(navLinks.every((href) => !href.includes('/defesa-busca-e-apreensao-veiculo'))).toBe(
       true,
     );
-    await expect(page.locator('#escritorio')).toHaveCount(1);
     await expect(page.locator('#areas')).toHaveCount(1);
+    await expect(page.locator('#avaliacoes')).toHaveCount(1);
+    await expect(page.locator('#instagram')).toHaveCount(1);
+    await expect(page.locator('#localizacao')).toHaveCount(1);
     await expect(page.locator('#contato')).toHaveCount(1);
 
     const landingLinks = page.locator('a[href*="/defesa-busca-e-apreensao-veiculo"]');
-    await expect(landingLinks).toHaveCount(1);
+    expect(await landingLinks.count()).toBeGreaterThanOrEqual(1);
     await expect(landingLinks.first()).toHaveAttribute(
       'href',
       '/defesa-busca-e-apreensao-veiculo/',
     );
 
-    await page.locator('footer').getByRole('link', { name: 'Áreas de atuação' }).click();
+    await page.locator('footer').getByRole('link', { name: 'Serviços' }).click();
     await expect(page).toHaveURL(/#areas$/);
   });
 
@@ -131,26 +170,21 @@ test.describe('Home, privacidade e 404', () => {
     await page.goto('/');
     await page.getByRole('button', { name: 'Aceitar', exact: true }).click();
 
-    for (const id of [
-      '#escritorio',
-      '#areas',
-      '#como-funciona',
-      '#duvidas',
-      '#atendimento',
-      '#localizacao',
-      '#contato',
-    ]) {
+    for (const id of ['#areas', '#avaliacoes', '#instagram', '#localizacao', '#contato']) {
       await expect(page.locator(id)).toHaveCount(1);
     }
 
-    await expect(page.locator('#atendimento svg.brazil-map path')).toHaveCount(27);
-    await expect(page.getByText('Atendimento online: todos os estados')).toBeVisible();
+    await expect(page.getByText('Segunda a sexta, das 8h às 16h30').first()).toBeVisible();
+    await expect(page.getByText('Avaliações do Google').first()).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Ver todas no Google' }).first()).toBeVisible();
 
-    await expect(page.locator('main details')).toHaveCount(6);
+    await expect(page.locator('main details')).toHaveCount(0);
 
     const jsonLd = await page.locator('script[type="application/ld+json"]').first().textContent();
     const graph = JSON.parse(jsonLd ?? '{}')['@graph'] as Array<Record<string, unknown>>;
-    expect(graph.map((node) => node['@type'])).toContain('FAQPage');
+    expect(graph.map((node) => node['@type'])).toContain('LegalService');
+    expect(jsonLd).not.toContain('FAQPage');
+    expect(jsonLd).not.toContain('aggregateRating');
 
     await page.locator('#localizacao [data-map-load]').scrollIntoViewIfNeeded();
     await page.getByRole('button', { name: 'Carregar mapa' }).click();
@@ -176,7 +210,7 @@ test.describe('Home, privacidade e 404', () => {
   test('privacidade é indexável e explica cookies', async ({ page }) => {
     await page.goto('/politica-de-privacidade/');
     await expect(page.locator('main h1')).toContainText('Política de Privacidade');
-    await expect(page.getByText('Cookies e análise de uso')).toBeVisible();
+    await expect(page.getByText('Cookies, análise de uso e conteúdo incorporado')).toBeVisible();
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /index, follow/);
   });
 
