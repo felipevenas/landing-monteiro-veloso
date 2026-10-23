@@ -19,18 +19,21 @@ npm run build
 
 - `/`, `/defesa-busca-e-apreensao-veiculo/`, `/politica-de-privacidade/` e 404.
 - Um H1 por página.
-- Home com as seções `#escritorio`, `#areas`, `#como-funciona`, `#duvidas`, `#atendimento`, `#localizacao` e `#contato` (uma de cada), dois mapas (cobertura do Brasil e escritório sob clique) e FAQ visível de 6 perguntas.
-- Header, footer, links de WhatsApp, e-mail, telefone e mapa.
+- Home com as seções `#areas`, `#avaliacoes`, `#instagram`, `#localizacao` e `#contato` (uma de cada), avaliações do Google e mapa do escritório sob clique.
+- Faixa de confiança com “Escritório em Salvador”, “Sigilo profissional” e “Análise individualizada” visível na landing.
+- Botão flutuante de WhatsApp verde, visível no mobile após o consentimento (>= 44 px, dentro da viewport). O botão do header permanece na paleta navy.
+- Header, footer, links de WhatsApp, e-mail, telefone, mapa e horário “Segunda a sexta, das 8h às 16h30”.
+- Home sem FAQ e sem âncoras órfãs (`#escritorio`, `#como-funciona`, `#duvidas`, `#atendimento`).
 - Nenhum `[PREENCHER]` no `dist` de produção.
-- Nenhuma promessa de resultado, preço, desconto ou depoimento.
+- Nenhuma promessa de resultado, preço ou desconto.
 
 ### SEO
 
 - Title <= 60 e description <= 160.
 - Canonical absoluto com barra final.
 - OG/Twitter com imagem 1200x630 existente.
-- JSON-LD válido: `LegalService`, `Person`, `WebSite`, `WebPage`, `BreadcrumbList`, `FAQPage`.
-- FAQPage idêntico ao FAQ visível (7 perguntas).
+- JSON-LD válido: `LegalService`, `Person`, `WebSite`, `WebPage` na home; `BreadcrumbList` e `FAQPage` na landing e na privacidade.
+- FAQPage da landing idêntico ao FAQ visível (7 perguntas).
 - Sem `aggregateRating`, `review` ou `priceRange`.
 - Sitemap sem 404; robots aponta para o sitemap.
 - 404 com `noindex`.
@@ -73,14 +76,14 @@ Testado em 320, 360, 390, 768, 1024, 1280, 1366, 1440, 1920 e 2560 px:
 
 ### Acessibilidade
 
-- Teclado: skip link, header, FAQ nativo, formulário, mapa.
+- Teclado: skip link, header, formulário, mapa e carrossel do Instagram.
 - Foco visível.
 - Contraste AA.
 - Labels, `aria-invalid`, `aria-describedby`, `role=alert`.
 - `prefers-reduced-motion`.
 - Reflow em 320 px e zoom 200%.
 - Iframe do mapa com `title`.
-- Mapa do Brasil (`#atendimento`) é decorativo (`aria-hidden`), com legenda em texto e CTA em botão real.
+- O carrossel do Instagram só carrega o `embed.js` depois do consentimento e quando a seção entra na viewport.
 
 ### Performance
 
