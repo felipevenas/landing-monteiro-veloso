@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '@/shared/config/site';
+import iconBranco from '@/assets/brand/icone-branco.png';
+
+interface Props {
+  height?: number;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+}
+
+const { height = 44, class: className, loading = 'eager' } = Astro.props;
+const width = Math.round((height * 813) / 574);
+---
+
+<Image
+  src={iconBranco}
+  width={width}
+  height={height}
+  widths={[width, width * 2]}
+  sizes={`${width}px`}
+  alt={site.name}
+  format="webp"
+  quality={92}
+  loading={loading}
+  decoding="async"
+  class={className}
+/>
