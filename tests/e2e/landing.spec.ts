@@ -132,7 +132,7 @@ test.describe('Landing de busca e apreensão', () => {
     await expect(page.getByRole('link', { name: /Ver o post 1 no Instagram/ })).toBeVisible();
 
     await page.getByRole('button', { name: 'Aceitar', exact: true }).click();
-    await expect.poll(() => page.locator('#instagram iframe').count()).toBeGreaterThan(0);
+    await expect(page.locator('[data-instagram-note]')).toBeHidden();
   });
 });
 

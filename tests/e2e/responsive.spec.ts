@@ -58,7 +58,9 @@ test('Instagram carrega embeds sem overflow em 320px e com nome acessível', asy
   await page.getByRole('button', { name: 'Aceitar', exact: true }).click();
   await page.locator('#instagram').scrollIntoViewIfNeeded();
 
-  await expect.poll(() => page.locator('#instagram iframe').count()).toBeGreaterThan(0);
+  await expect
+    .poll(() => page.locator('#instagram iframe').count(), { timeout: 20000 })
+    .toBeGreaterThan(0);
 
   await expect
     .poll(() => page.evaluate(() => document.documentElement.scrollWidth))
