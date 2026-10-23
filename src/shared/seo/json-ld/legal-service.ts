@@ -1,5 +1,5 @@
 import { publishable } from '@/shared/config/field';
-import { site } from '@/shared/config/site';
+import { businessHours, googlePlaceUrl, site } from '@/shared/config/site';
 
 export function legalServiceSchema(): Record<string, unknown> {
   const address: Record<string, unknown> = {
@@ -42,7 +42,21 @@ export function legalServiceSchema(): Record<string, unknown> {
       'Financiamento de veículo',
       'Revisional de contrato bancário',
     ],
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: [...businessHours.days],
+        opens: businessHours.opens,
+        closes: businessHours.closes,
+      },
+    ],
   };
+
+  const placeUrl = googlePlaceUrl();
+  if (placeUrl) {
+    schema.hasMap = placeUrl;
+    schema.sameAs = [site.social.instagram, placeUrl];
+  }
 
   const oab = publishable(site.lawyer.oab);
   if (oab) {
@@ -52,9 +66,6 @@ export function legalServiceSchema(): Record<string, unknown> {
       value: oab,
     };
   }
-
-  const hours = publishable(site.hours);
-  if (hours) schema.openingHours = hours;
 
   const latitude = publishable(site.geo.latitude);
   const longitude = publishable(site.geo.longitude);

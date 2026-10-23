@@ -17,6 +17,7 @@ dist/
 playwright-report/
 test-results/
 .playwright-mcp/
+screenshots/
 coverage/
 
 # editors / OS

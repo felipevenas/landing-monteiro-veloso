@@ -1,19 +1,15 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import HomeHero from '@/features/home/ui/HomeHero.astro';
-import HomeTrustBar from '@/features/home/ui/HomeTrustBar.astro';
+import TrustBar from '@/shared/ui/TrustBar.astro';
 import HomeAreas from '@/features/home/ui/HomeAreas.astro';
-import HomeAbout from '@/features/home/ui/HomeAbout.astro';
-import HomeProcess from '@/features/home/ui/HomeProcess.astro';
-import HomeDifferentials from '@/features/home/ui/HomeDifferentials.astro';
-import HomeFaq from '@/features/home/ui/HomeFaq.astro';
-import HomeCoverage from '@/features/home/ui/HomeCoverage.astro';
+import HomeInstagram from '@/features/instagram/ui/HomeInstagram.astro';
+import ReviewsSection from '@/features/reviews/ui/ReviewsSection.astro';
 import HomeLocation from '@/features/home/ui/HomeLocation.astro';
 import ContactFormSection from '@/features/contact-form/ui/ContactFormSection.astro';
-import { homeContact, homeFaq, homeSeo } from '@/features/home/content';
+import { homeContact, homeReviews, homeSeo } from '@/features/home/content';
 import { createMetadata } from '@/shared/seo/metadata';
 import {
-  faqSchema,
   legalServiceSchema,
   lawyerSchema,
   webPageSchema,
@@ -35,19 +31,15 @@ const jsonLd = [
     title: metadata.title,
     description: metadata.description,
   }),
-  faqSchema(homeFaq),
 ];
 ---
 
 <BaseLayout metadata={metadata} jsonLd={jsonLd}>
   <HomeHero />
-  <HomeTrustBar />
+  <TrustBar tone="dark" />
   <HomeAreas />
-  <HomeAbout />
-  <HomeProcess />
-  <HomeDifferentials />
-  <HomeFaq />
-  <HomeCoverage />
+  <ReviewsSection {...homeReviews} />
+  <HomeInstagram />
   <HomeLocation />
   <ContactFormSection {...homeContact} />
 </BaseLayout>

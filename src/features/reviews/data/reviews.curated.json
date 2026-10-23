@@ -1,0 +1,27 @@
+{
+  "source": "Google",
+  "capturedAt": "2026-10-22",
+  "note": "Avaliações públicas copiadas do perfil do Google (Place ID ChIJYYCApFkbFgcRJoXGIZQ1Mj8). A Places API não devolve os textos para esta chave, então este arquivo é a fonte editorial do carrossel. Revisar a cada 3 meses: manter textos literais, atualizar datas relativas e trocar por avaliações mais recentes.",
+  "reviews": [
+    {
+      "author": "Katia Neves Ribeiro Fernandes",
+      "relativeDate": "um mês atrás",
+      "text": "Fui muito bem atendida pela Dra. Roberta Veloso. Uma profissional atenciosa, competente e muito cuidadosa. Fiquei muito satisfeita com o atendimento e recomendo! Logo me tornarei cliente."
+    },
+    {
+      "author": "Jackson Conceição Bartolomeu",
+      "relativeDate": "9 meses atrás",
+      "text": "Dra. Roberta Veloso parabéns!!! Bastante educada, atenciosa, didática, comprometida, esclarecedora com foco e objetividade, muito obrigado."
+    },
+    {
+      "author": "Priscila Almeida",
+      "relativeDate": "um ano atrás",
+      "text": "Fui muito bem atendida pela Dra. Roberta Veloso.\nEla tirou todas as minhas dúvidas e me orientou de forma paciente e eficaz."
+    },
+    {
+      "author": "Kazelli Grafis",
+      "relativeDate": "um ano atrás",
+      "text": "Fui muito bem atendido e todas as minhas dúvidas foram esclarecidas de forma clara e objetiva. Senti muita confiança e competência no trabalho do escritório desde o início. Indico os serviços desta empresa."
+    }
+  ]
+}

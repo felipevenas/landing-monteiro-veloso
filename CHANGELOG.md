@@ -7,6 +7,30 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [Não lançado] - 2026-10-23
+
+### 🚀 Adicionado
+
+- **Avaliações do Google** na home e na landing: nota, total e carrossel com comentários curados, com atualização via `npm run fetch:reviews`.
+- **Faixa de diferenciais** compartilhada: análise individualizada, sigilo profissional e atendimento direto.
+- **Seção de avaliações** na landing de busca e apreensão.
+- **Ícone de retorno à home** no cabeçalho da landing.
+
+### 🎨 Alterado
+
+- **Home enxuta**, com hero, áreas de atuação, avaliações, Instagram, localização e contato.
+- **Landing de busca e apreensão direta**: timeline compacta e remoção das seções redundantes (documentos, como funciona, diferenciais e localização).
+- **Rodapé premium** com marca d'água, navegação, contato e bloco legal revisado.
+- **Títulos de seção** sem numeração e sem travessão.
+- **Bio da advogada** com novo retrato, título e texto resumido.
+- **Botão flutuante do WhatsApp** 20% maior.
+
+### 🔧 Corrigido
+
+- **Consentimento** resiliente quando o `localStorage` está indisponível, com reabertura do banner e atualização do Consent Mode.
+- **Instagram** carregado apenas após o consentimento, com restauração do fallback ao revogar.
+- **Deploy**: saída do Astro (`dist`) configurada para a Vercel e validações de review no `check:dist`.
+
 ## [1.0.0] - 2026-10-21
 
 ### 🚀 Adicionado

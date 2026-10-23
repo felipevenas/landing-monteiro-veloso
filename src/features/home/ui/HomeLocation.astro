@@ -20,6 +20,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery()}`;
         <SectionHeading
           id="home-localizacao-title"
           eyebrow={homeLocation.eyebrow}
+
           title={homeLocation.title}
           description={homeLocation.description}
         />
@@ -38,57 +39,21 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery()}`;
 
           <div class="flex items-start gap-3">
             <span class="mt-0.5 shrink-0 text-brand">
+              <Icon name="lucide:clock" size={17} />
+            </span>
+            <div class="flex-1 border-t border-border pt-3">
+              <p class="text-sm font-bold text-ink">{homeLocation.hoursLabel}</p>
+              <p class="mt-1 text-sm text-text-2">{hours ?? 'Consulte a equipe pelo WhatsApp.'}</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 shrink-0 text-brand">
               <Icon name="lucide:video" size={17} />
             </span>
             <div class="flex-1 border-t border-border pt-3">
-              <p class="text-sm font-bold text-ink">Atendimento online</p>
-              <p class="mt-1 text-sm leading-relaxed text-text-2">
-                Fora de Salvador, o atendimento é feito por videochamada, WhatsApp ou e-mail, em
-                todo o Brasil.
-              </p>
-            </div>
-          </div>
-
-          {hours && (
-            <div class="flex items-start gap-3">
-              <span class="mt-0.5 shrink-0 text-brand">
-                <Icon name="lucide:clock" size={17} />
-              </span>
-              <div class="flex-1 border-t border-border pt-3">
-                <p class="text-sm font-bold text-ink">Horário de atendimento</p>
-                <p class="mt-1 text-sm text-text-2">{hours}</p>
-              </div>
-            </div>
-          )}
-
-          <div class="flex items-start gap-3">
-            <span class="mt-0.5 shrink-0 text-brand">
-              <Icon name="lucide:phone" size={17} />
-            </span>
-            <div class="flex-1 border-t border-border pt-3">
-              <p class="text-sm font-bold text-ink">Contato direto</p>
-              <p class="mt-1 text-sm text-text-2">
-                <a class="transition hover:text-brand" href={`tel:${site.phone.e164}`}>
-                  {site.phone.display}
-                </a>
-              </p>
-              <p class="text-sm text-text-2">
-                <a class="transition hover:text-brand" href={`mailto:${site.email}`}>
-                  {site.email}
-                </a>
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-3">
-            <span class="mt-0.5 shrink-0 text-brand">
-              <Icon name="lucide:message-circle" size={17} />
-            </span>
-            <div class="flex-1 border-t border-border pt-3">
-              <p class="text-sm font-bold text-ink">Antes de visitar</p>
-              <p class="mt-1 max-w-sm text-sm leading-relaxed text-text-2">
-                Combine o horário com a equipe pelo WhatsApp para que o atendimento seja organizado.
-              </p>
+              <p class="text-sm font-bold text-ink">{homeLocation.onlineTitle}</p>
+              <p class="mt-1 text-sm leading-relaxed text-text-2">{homeLocation.onlineText}</p>
             </div>
           </div>
         </div>
@@ -102,11 +67,11 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery()}`;
             dataWaLocation="final"
           >
             <Icon name="lucide:message-circle" size={18} />
-            Combinar horário
+            {homeLocation.whatsappCta}
           </Button>
           <Button href={mapsUrl} variant="outline" size="md" target="_blank">
             <Icon name="lucide:navigation" size={17} />
-            Abrir no Maps
+            {homeLocation.mapsCta}
           </Button>
         </div>
       </div>

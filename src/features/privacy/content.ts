@@ -3,7 +3,7 @@ import { site } from '@/shared/config/site';
 export const privacySeo = {
   title: 'Política de Privacidade | Monteiro Veloso Advogados',
   description:
-    'Como o Monteiro Veloso Advogados trata dados pessoais no site, no formulário de contato e nos cookies de análise, com os direitos dos titulares.',
+    'Como tratamos dados pessoais no site, no formulário de contato, nos cookies de análise e nos vídeos do Instagram, com os direitos dos titulares.',
   path: '/politica-de-privacidade/',
   breadcrumb: [
     { name: 'Início', path: '/' },
@@ -43,6 +43,7 @@ export const privacySections: PrivacySection[] = [
       'Dados de atribuição: parâmetros de campanha (UTMs), identificadores de clique (como gclid e fbclid), página de entrada e referência.',
       'Dados técnicos de navegação: endereço IP, tipo de navegador, dispositivo, data e hora de acesso, registrados pela hospedagem para segurança e funcionamento do site.',
       'Dados de uso do site, somente se você autorizar o Google Analytics: páginas visitadas, tempo de permanência e interações, sem envio de nome ou telefone ao analytics.',
+      'Avaliações públicas do Google exibidas no site: nome público do autor, nota, comentário e data de publicação, obtidos do perfil do escritório no Google.',
     ],
   },
   {
@@ -64,7 +65,7 @@ export const privacySections: PrivacySection[] = [
   {
     title: '5. Compartilhamento',
     paragraphs: [
-      'Os dados podem ser tratados por fornecedores que apoiam a operação do site e do atendimento, como serviços de hospedagem, provedores de e-mail (o formulário abre o seu aplicativo de e-mail para o envio) e ferramentas do Google (mapas e analytics, quando autorizado). Se o formulário for configurado para envio automático, podem ser usados serviços de automação e armazenamento. Esses fornecedores atuam conforme instruções do escritório e obrigações de confidencialidade.',
+      'Os dados podem ser tratados por fornecedores que apoiam a operação do site e do atendimento, como serviços de hospedagem, provedores de e-mail (o formulário abre o seu aplicativo de e-mail para o envio), ferramentas do Google (mapas, analytics e avaliações públicas, quando aplicável) e a Meta/Instagram (quando você autoriza o carregamento dos vídeos). Se o formulário for configurado para envio automático, podem ser usados serviços de automação e armazenamento. Esses fornecedores atuam conforme instruções do escritório e obrigações de confidencialidade.',
       'O escritório não vende dados pessoais. O compartilhamento com autoridades ocorre apenas quando exigido por lei ou ordem competente.',
     ],
   },
@@ -81,9 +82,11 @@ export const privacySections: PrivacySection[] = [
     ],
   },
   {
-    title: '8. Cookies e análise de uso',
+    title: '8. Cookies, análise de uso e conteúdo incorporado',
     paragraphs: [
-      'O site usa armazenamento estritamente necessário para lembrar a sua decisão de consentimento e preservar a atribuição da campanha durante a sessão. O Google Analytics só é carregado depois que você escolhe “Aceitar análise”.',
+      'O site usa armazenamento estritamente necessário para lembrar a sua decisão de consentimento e preservar a atribuição da campanha durante a sessão. O Google Analytics só é carregado depois que você escolhe “Aceitar”.',
+      'Os vídeos do Instagram são incorporados por meio do serviço da Meta. O script e o conteúdo do Instagram só são carregados depois do seu consentimento; sem ele, o site mostra apenas links para abrir os posts diretamente no Instagram. Ao autorizar, a Meta pode definir cookies e tratar dados conforme a política de privacidade dela.',
+      'As avaliações exibidas na seção do Google são conteúdo público do perfil do escritório. O site não cria conta, não exige login e não envia seus dados ao Google para exibir esses comentários.',
       'Você pode recusar ou mudar de ideia a qualquer momento em “Preferências de cookies”, no rodapé. A recusa não impede o acesso ao conteúdo nem o contato pelo WhatsApp.',
     ],
   },

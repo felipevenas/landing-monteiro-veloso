@@ -2,139 +2,211 @@
 import Container from '@/shared/ui/Container.astro';
 import Icon from '@/shared/ui/Icon.astro';
 import Logo from '@/shared/ui/Logo.astro';
+import LogoMark from '@/shared/ui/LogoMark.astro';
 import { publishable } from '@/shared/config/field';
 import { routes } from '@/shared/config/routes';
-import { fullAddress, mapQuery, site } from '@/shared/config/site';
+import { fullAddress, googleReviewsUrl, mapQuery, site } from '@/shared/config/site';
 
 const oab = publishable(site.lawyer.oab);
+const hours = publishable(site.hours);
 const year = new Date().getFullYear();
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery()}`;
-const credit = `Responsável: ${site.lawyer.name}, ${site.lawyer.role}${oab ? ` / OAB/BA ${oab}` : ''}. Conteúdo em conformidade com o Provimento nº 205/2021 da OAB.`;
+const reviewsUrl = googleReviewsUrl();
+const credit = `Responsável: ${site.lawyer.name}, ${site.lawyer.role}${oab ? ` / OAB/BA ${oab}` : ''}. Conteúdo informativo, sem promessa de resultado.`;
+const label = 'text-[0.6rem] font-bold uppercase tracking-[0.2em] text-sky-300';
+
+const navigation = [
+  { label: 'Início', href: routes.home },
+  { label: 'Serviços', href: '/#areas' },
+  { label: 'Avaliações', href: '/#avaliacoes' },
+  { label: 'Instagram', href: '/#instagram' },
+  { label: 'Localização', href: '/#localizacao' },
+  { label: 'Contato', href: '/#contato' },
+];
 ---
 
-<footer class="bg-ink text-blue-200/80">
-  <Container class="py-14 sm:py-16">
-    <div class="grid gap-10 border-b border-white/10 pb-12 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_1fr]">
+<footer class="relative overflow-hidden bg-ink text-blue-200/80">
+  <div
+    class="h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"
+    aria-hidden="true"
+  ></div>
+
+  <div
+    class="pointer-events-none absolute -right-24 -bottom-36 hidden opacity-[0.05] md:block"
+    aria-hidden="true"
+  >
+    <LogoMark height={480} loading="lazy" />
+  </div>
+
+  <Container class="relative">
+    <div class="grid gap-12 pt-14 pb-12 sm:pt-16 sm:pb-14 md:grid-cols-2 lg:grid-cols-[1.1fr_0.6fr_0.8fr]">
       <div>
         <a href={routes.home} class="inline-block" aria-label={`${site.name}: página inicial`}>
-          <Logo height={76} class="h-[76px] w-auto" loading="lazy" />
+          <Logo height={62} class="h-[62px] w-auto" loading="lazy" />
         </a>
-        <p class="mt-5 max-w-sm text-sm leading-relaxed text-blue-200/75">
-          Advocacia com escuta, clareza e responsabilidade. Atuação concentrada em Direito Bancário,
-          na defesa de pessoas físicas nas relações com instituições financeiras.
+        <p class="mt-6 max-w-sm text-sm leading-relaxed text-blue-200/70">
+          Defesa de pessoas físicas contra bancos e financeiras: busca e apreensão, revisional de
+          financiamento e cobrança. Salvador e todo o Brasil.
         </p>
-        <div class="mt-5 flex items-center gap-3">
+        <div class="mt-7 flex flex-col items-start gap-2.5">
           <a
+            class="group inline-flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-[0.16em] text-blue-200/80 transition hover:text-white"
             href={site.social.instagram}
-            class="inline-flex size-11 items-center justify-center rounded-[2px] border border-white/35 text-blue-200 transition hover:border-white/60 hover:text-white"
-            aria-label="Instagram do escritório"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon name="lucide:instagram" size={18} />
+            Instagram do escritório
+            <Icon
+              name="lucide:arrow-up-right"
+              size={13}
+              class="transition duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
           </a>
           <a
+            class="group inline-flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-[0.16em] text-blue-200/80 transition hover:text-white"
             href={site.social.instagramLawyer}
-            class="inline-flex size-11 items-center justify-center rounded-[2px] border border-white/35 text-blue-200 transition hover:border-white/60 hover:text-white"
-            aria-label="Instagram da Dra. Roberta Veloso"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon name="lucide:instagram" size={18} />
+            Instagram da Dra. Roberta
+            <Icon
+              name="lucide:arrow-up-right"
+              size={13}
+              class="transition duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
           </a>
           <a
+            class="group inline-flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-[0.16em] text-blue-200/80 transition hover:text-white"
             href={site.phone.whatsapp}
-            class="inline-flex size-11 items-center justify-center rounded-[2px] border border-white/35 text-blue-200 transition hover:border-white/60 hover:text-white"
-            aria-label="WhatsApp do escritório"
             data-wa
             data-wa-location="footer"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon name="lucide:message-circle" size={18} />
+            WhatsApp
+            <Icon
+              name="lucide:arrow-up-right"
+              size={13}
+              class="transition duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
           </a>
         </div>
       </div>
 
-      <div>
-        <h2 class="text-sm font-semibold text-sky-300">Navegação</h2>
-        <nav class="mt-4 flex flex-col gap-3" aria-label="Navegação do rodapé">
-          <a class="py-1.5 text-sm transition hover:text-white" href={routes.home}>
-            Início
-          </a>
-          <a class="py-1.5 text-sm transition hover:text-white" href="/#escritorio">
-            O escritório
-          </a>
-          <a class="py-1.5 text-sm transition hover:text-white" href="/#areas">
-            Áreas de atuação
-          </a>
-          <a class="py-1.5 text-sm transition hover:text-white" href="/#duvidas">
-            Dúvidas
-          </a>
-          <a class="py-1.5 text-sm transition hover:text-white" href="/#localizacao">
-            Onde estamos
-          </a>
-          <a class="py-1.5 text-sm transition hover:text-white" href="/#contato">
-            Contato
-          </a>
-          <a
-            class="mt-2 border-t border-white/10 pt-3 text-sm font-semibold text-white transition hover:text-sky-300"
-            href={routes.landing}
-          >
-            Busca e apreensão de veículo
-          </a>
-          <a class="text-sm transition hover:text-white" href={routes.privacy}>
-            Política de privacidade
-          </a>
-          <button
-            type="button"
-            class="py-1.5 text-left text-sm transition hover:text-white"
-            data-consent-open
-          >
-            Preferências de cookies
-          </button>
-        </nav>
-      </div>
+      <nav aria-label="Navegação do rodapé">
+        <h2 class={label}>Navegação</h2>
+        <ul class="mt-5 space-y-3 text-sm">
+          {navigation.map((item) => (
+            <li>
+              <a
+                class="inline-block py-0.5 text-blue-200/75 transition hover:text-white"
+                href={item.href}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a
+          href={routes.landing}
+          class="mt-6 flex items-center justify-between gap-3 border-t border-white/10 pt-4 text-sm font-semibold text-white transition hover:text-sky-300"
+        >
+          Busca e apreensão de veículo
+          <Icon name="lucide:arrow-up-right" size={14} class="shrink-0" />
+        </a>
+      </nav>
 
       <div>
-        <h2 class="text-sm font-semibold text-sky-300">Contato</h2>
-        <address class="mt-4 not-italic text-sm leading-relaxed text-blue-200/75">
+        <h2 class={label}>Escritório</h2>
+        <address class="mt-5 not-italic text-sm leading-relaxed text-blue-200/70">
           {fullAddress()}
         </address>
-        <div class="mt-4 flex flex-col gap-2 text-sm">
-          <a class="py-1 transition hover:text-white" href={`tel:${site.phone.e164}`}>
-            {site.phone.display}
-          </a>
-          <a class="py-1 transition hover:text-white" href={`mailto:${site.email}`}>
-            {site.email}
-          </a>
+
+        <a
+          class="mt-5 block font-display text-[1.3rem] leading-tight text-white transition hover:text-sky-300"
+          href={`tel:${site.phone.e164}`}
+        >
+          {site.phone.display}
+        </a>
+        <a
+          class="mt-1 block break-all text-sm text-blue-200/70 transition hover:text-white"
+          href={`mailto:${site.email}`}
+        >
+          {site.email}
+        </a>
+
+        <div class="mt-6">
+          <p class={label}>Horário</p>
+          <p class="mt-1.5 text-sm leading-relaxed text-blue-200/70">
+            {hours ?? 'Consulte a equipe pelo WhatsApp.'}
+          </p>
+        </div>
+
+        <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[0.76rem] font-semibold">
           <a
-            class="py-1 transition hover:text-white"
+            class="inline-flex items-center gap-1.5 text-blue-200/70 transition hover:text-white"
             href={mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Ver no Google Maps
+            Google Maps
+            <Icon name="lucide:arrow-up-right" size={12} />
           </a>
+          {reviewsUrl && (
+            <a
+              class="inline-flex items-center gap-1.5 text-blue-200/70 transition hover:text-white"
+              href={reviewsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Avaliações no Google
+              <Icon name="lucide:arrow-up-right" size={12} />
+            </a>
+          )}
         </div>
-        <p class="mt-4 text-sm leading-relaxed text-blue-200/75">
-          Atendimento presencial em Salvador e online em {site.serviceArea}.
-        </p>
       </div>
     </div>
 
-    <div class="flex flex-col gap-5 pt-8 text-xs leading-relaxed text-blue-200/60">
-      <p class="max-w-4xl">
-        As informações deste site têm caráter informativo e não constituem promessa de resultado nem
-        substituem a análise individualizada de cada caso. Cada situação depende do contrato, do
-        processo e das circunstâncias concretas.
-      </p>
-      <p class="max-w-4xl">{credit}</p>
-      <div class="flex flex-col justify-between gap-2 border-t border-white/10 pt-5 sm:flex-row">
+    <div class="border-t border-white/10 py-8">
+      <div class="grid gap-6 lg:grid-cols-[1.5fr_0.5fr]">
+        <div class="max-w-4xl space-y-2.5 text-[0.72rem] leading-relaxed text-blue-200/60">
+          <p>
+            As informações deste site têm caráter informativo e não constituem promessa de resultado
+            nem substituem a análise individualizada de cada caso. Cada situação depende do
+            contrato, do processo e das circunstâncias concretas.
+          </p>
+          <p>{credit}</p>
+        </div>
+        <div class="flex flex-col gap-2 text-[0.72rem] text-blue-200/60 lg:items-end lg:text-right">
+          <a class="transition hover:text-white" href={routes.privacy}>
+            Política de privacidade
+          </a>
+          <button
+            type="button"
+            class="text-left transition hover:text-white lg:text-right"
+            data-consent-open
+          >
+            Preferências de cookies
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 pb-24 text-[0.64rem] uppercase tracking-[0.14em] text-blue-200/55 sm:flex-row sm:items-center sm:justify-between">
         <p>
-          © {year} {site.name}. Todos os direitos reservados.
+          © {year} {site.name}
         </p>
-        <p>CNPJ {site.cnpj}</p>
+        <p>
+          CNPJ {site.cnpj}
+          {oab ? ` · OAB/BA ${oab}` : ''}
+        </p>
+        <a
+          class="inline-flex items-center gap-2 transition hover:text-white"
+          href="#topo"
+          aria-label="Voltar ao topo da página"
+        >
+          Voltar ao topo
+          <Icon name="lucide:arrow-up" size={13} />
+        </a>
       </div>
     </div>
   </Container>

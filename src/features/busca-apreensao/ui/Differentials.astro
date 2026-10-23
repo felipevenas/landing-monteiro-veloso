@@ -6,38 +6,70 @@ import SectionHeading from '@/shared/ui/SectionHeading.astro';
 import { differentials } from '../content';
 ---
 
-<Section background="white" labelledby="diferenciais-title">
+<Section id="porque" background="white" labelledby="diferenciais-title">
   <Container>
-    <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-      <div>
-        <SectionHeading
-          id="diferenciais-title"
-          eyebrow={differentials.eyebrow}
-          title={differentials.title}
-          highlight="lado humano"
-        />
-        <p class="mt-5 max-w-md text-sm leading-relaxed text-text-2">
-          A técnica importa, mas o modo como ela é explicada também. O atendimento é conduzido para
-          que você entenda o que está sendo feito e por quê.
-        </p>
-        <div class="mt-7 flex items-start gap-3 border-l-2 border-brand pl-4">
-          <Icon name="lucide:map-pin" size={17} class="mt-0.5 shrink-0 text-brand" />
-          <p class="text-sm leading-snug text-text-2">
-            <strong class="text-ink">Presencial e online.</strong> Atendimento no Comércio, em
-            Salvador, com hora combinada, ou online, em todo o Brasil.
-          </p>
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeading
+        id="diferenciais-title"
+        eyebrow={differentials.eyebrow}
+
+        title={differentials.title}
+        description={differentials.description}
+      />
+      <p class="hidden max-w-[15rem] border-l-2 border-blue-600 pl-4 text-sm leading-snug text-text-2 lg:block">
+        {differentials.closing}
+      </p>
+    </div>
+
+    <div class="mt-10 border border-border lg:mt-12">
+      <div class="hidden grid-cols-[1.1fr_1fr_1fr] border-b border-border bg-paper-alt md:grid">
+        <div class="px-5 py-3 text-[0.62rem] font-bold uppercase tracking-[0.16em] text-text-2">
+          Critério
+        </div>
+        <div class="px-5 py-3 text-[0.62rem] font-bold uppercase tracking-[0.16em] text-text-2">
+          {differentials.columns[0]}
+        </div>
+        <div class="bg-ink px-5 py-3 text-[0.62rem] font-bold uppercase tracking-[0.16em] text-sky-300">
+          {differentials.columns[1]}
         </div>
       </div>
 
-      <div class="grid gap-x-8 gap-y-8 sm:grid-cols-2">
-        {differentials.items.map((item) => (
-          <div class="border-t border-border pt-4">
-            <Icon name={item.icon} size={19} class="text-brand" />
-            <h3 class="mt-3 font-display text-[1.3rem] text-ink">{item.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-text-2">{item.text}</p>
+      <div class="divide-y divide-border">
+        {differentials.rows.map((row) => (
+          <div class="grid gap-3 p-5 md:grid-cols-[1.1fr_1fr_1fr] md:gap-0 md:p-0">
+            <p class="font-display text-[1.1rem] leading-tight text-ink md:px-5 md:py-5">
+              {row.criterion}
+            </p>
+            <div class="md:border-l md:border-border md:px-5 md:py-5">
+              <span class="mb-1 block text-[0.58rem] font-bold uppercase tracking-[0.16em] text-text-2 md:hidden">
+                {differentials.columns[0]}
+              </span>
+              <p class="text-sm leading-relaxed text-text-2">{row.alone}</p>
+            </div>
+            <div class="border-t border-border pt-3 md:border-l md:border-t-0 md:border-border md:bg-blue-50 md:px-5 md:py-5">
+              <span class="mb-1 block text-[0.58rem] font-bold uppercase tracking-[0.16em] text-blue-600 md:hidden">
+                {differentials.columns[1]}
+              </span>
+              <p class="text-sm font-semibold leading-relaxed text-ink">{row.withOffice}</p>
+            </div>
           </div>
         ))}
       </div>
+    </div>
+
+    <div class="mt-8 flex flex-col gap-4 border-l-2 border-brand pl-4 sm:flex-row sm:items-center sm:justify-between">
+      <p class="max-w-xl text-sm leading-relaxed text-text-2 lg:hidden">{differentials.closing}</p>
+      <p class="hidden max-w-xl text-sm leading-relaxed text-text-2 lg:block">
+        A escolha não é entre gastar ou não gastar. É entre reagir com informação ou esperar o banco
+        decidir por você.
+      </p>
+      <a
+        href="#contato"
+        class="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-[2px] bg-brand px-5 text-sm font-bold text-white transition hover:bg-navy-800"
+      >
+        {differentials.cta}
+        <Icon name="lucide:arrow-right" size={15} />
+      </a>
     </div>
   </Container>
 </Section>

@@ -1,4 +1,8 @@
-import { getConsentState, setConsentDecision } from '../application/consent-service';
+import {
+  getConsentState,
+  reopenConsentBanner,
+  setConsentDecision,
+} from '../application/consent-service';
 
 function bind(): void {
   const banner = document.querySelector<HTMLElement>('[data-consent-banner]');
@@ -15,7 +19,7 @@ function bind(): void {
 
   document.querySelectorAll<HTMLElement>('[data-consent-open]').forEach((button) => {
     button.addEventListener('click', () => {
-      document.documentElement.setAttribute('data-consent', 'undecided');
+      reopenConsentBanner();
       banner.querySelector<HTMLElement>('[data-consent-choice="granted"]')?.focus();
     });
   });

@@ -1,0 +1,91 @@
+---
+import { Picture } from 'astro:assets';
+import Container from '@/shared/ui/Container.astro';
+import Eyebrow from '@/shared/ui/Eyebrow.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import timelineImage from '@/assets/images/img-carro-landscape.jpg';
+import { timeline } from '../content';
+---
+
+<section id="prazo" class="relative overflow-hidden bg-ink text-white">
+  <Container class="py-12 sm:py-14 lg:py-16">
+    <div class="grid gap-9 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-14">
+      <figure class="relative">
+        <div class="relative overflow-hidden border border-white/15 bg-white/[0.02] shadow-[0_28px_60px_-32px_rgba(0,0,0,0.9)]">
+          <Picture
+            src={timelineImage}
+            alt="Carro sendo retirado por um guincho em uma rua residencial brasileira ao amanhecer"
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            widths={[640, 960, 1280]}
+            sizes="(min-width: 1024px) 44vw, 92vw"
+            width={1280}
+            height={543}
+            loading="lazy"
+            decoding="async"
+            class="aspect-[3/2] w-full object-cover object-[70%_center]"
+          />
+          <span
+            class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10"
+            aria-hidden="true"
+          ></span>
+        </div>
+        <span
+          class="pointer-events-none absolute -top-2 -left-2 hidden h-12 w-12 border-t border-l border-sky-300/40 lg:block"
+          aria-hidden="true"
+        ></span>
+        <figcaption class="mt-3 flex items-center justify-between gap-4 border-t border-white/10 pt-3 text-[0.58rem] font-bold uppercase tracking-[0.18em] text-blue-200/55">
+          <span>Apreensão registrada</span>
+          <span>{timeline.bannerNote}</span>
+        </figcaption>
+      </figure>
+
+      <div>
+        <Eyebrow tone="dark">{timeline.eyebrow}</Eyebrow>
+        <h2 class="display-2 mt-4 text-white">{timeline.title}</h2>
+        <p class="mt-4 max-w-lg text-[0.98rem] leading-relaxed text-blue-200/80">
+          {timeline.description}
+        </p>
+
+        <div class="mt-6 flex items-center gap-4 border-y border-white/15 py-4">
+          <span class="font-display text-5xl leading-none text-sky-300">
+            {timeline.highlight.value}
+          </span>
+          <div>
+            <p class="text-[0.64rem] font-bold uppercase tracking-[0.2em] text-white">
+              {timeline.highlight.unit}
+            </p>
+            <p class="mt-1 max-w-xs text-xs leading-relaxed text-blue-200/70">
+              {timeline.highlight.text}
+            </p>
+          </div>
+        </div>
+
+        <a
+          href="#contato"
+          class="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-sky-300 underline decoration-sky-300/30 underline-offset-4 transition hover:text-white"
+        >
+          {timeline.cta}
+          <Icon name="lucide:arrow-right" size={16} />
+        </a>
+      </div>
+    </div>
+
+    <ol class="mt-10 grid gap-6 border-t border-white/15 pt-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-5">
+      {timeline.steps.map((step) => (
+        <li>
+          <span
+            class="inline-flex size-8 items-center justify-center rounded-full border border-sky-300/40 font-display text-xs text-sky-300"
+            aria-hidden="true"
+          >
+            {step.number}
+          </span>
+          <h3 class="mt-3 font-display text-[1.08rem] leading-tight text-white">{step.title}</h3>
+          <p class="mt-1.5 text-[0.8rem] leading-relaxed text-blue-200/70">{step.text}</p>
+        </li>
+      ))}
+    </ol>
+
+    <p class="mt-6 max-w-3xl text-xs leading-relaxed text-blue-200/50">{timeline.note}</p>
+  </Container>
+</section>

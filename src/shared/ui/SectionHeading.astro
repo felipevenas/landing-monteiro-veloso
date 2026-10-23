@@ -12,35 +12,52 @@ interface Props {
   class?: string;
 }
 
-const { id, title, description, align = 'left', tone = 'light', class: className } = Astro.props;
+const {
+  id,
+  eyebrow,
+  title,
+  description,
+  align = 'left',
+  tone = 'light',
+  class: className,
+} = Astro.props;
 
 const centered = align === 'center';
+const dark = tone === 'dark';
 const titleHtml = escapeHtml(title);
 ---
 
 <div class:list={[centered ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl', className]}>
-  <span
-    class:list={[
-      'mb-5 block h-px w-12',
-      tone === 'dark' ? 'bg-sky-300/70' : 'bg-blue-500/70',
-      centered && 'mx-auto',
-    ]}
-    aria-hidden="true"
-  ></span>
+  {eyebrow ? (
+    <p
+      class:list={[
+        'mb-5 text-[0.66rem] font-extrabold uppercase tracking-[0.2em]',
+        dark ? 'text-sky-300' : 'text-blue-600',
+        centered && 'text-center',
+      ]}
+    >
+      {eyebrow}
+    </p>
+  ) : (
+    <span
+      class:list={[
+        'mb-5 block h-px w-12',
+        dark ? 'bg-sky-300/70' : 'bg-blue-500/70',
+        centered && 'mx-auto',
+      ]}
+      aria-hidden="true"
+    ></span>
+  )}
   <h2
     id={id}
-    class:list={[
-      'display-2',
-      tone === 'dark' ? 'text-white' : 'text-ink',
-      centered && 'text-balance',
-    ]}
+    class:list={['display-2', dark ? 'text-white' : 'text-ink', centered && 'text-balance']}
     set:html={titleHtml}
   />
   {description && (
     <p
       class:list={[
         'mt-5 max-w-2xl text-[1.02rem] leading-relaxed',
-        tone === 'dark' ? 'text-blue-200/85' : 'text-text-2',
+        dark ? 'text-blue-200/85' : 'text-text-2',
         centered && 'mx-auto',
       ]}
     >

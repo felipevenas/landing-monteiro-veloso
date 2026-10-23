@@ -1,0 +1,53 @@
+---
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import { trustPoints } from '@/shared/config/trust';
+
+interface Props {
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+
+const { tone = 'light', class: className } = Astro.props;
+const dark = tone === 'dark';
+---
+
+<div
+  class:list={[
+    'border-y',
+    dark ? 'border-white/10 bg-navy-900 text-white' : 'border-border bg-paper text-ink',
+    className,
+  ]}
+>
+  <Container class="grid sm:grid-cols-3">
+    {trustPoints.map((item, index) => (
+      <div
+        class:list={[
+          'flex items-start gap-4 py-7 sm:py-9',
+          index > 0 && 'border-t sm:border-t-0 sm:border-l sm:pl-7',
+          index > 0 && (dark ? 'border-white/10' : 'border-border'),
+        ]}
+      >
+        <span
+          class:list={[
+            'inline-flex size-11 shrink-0 items-center justify-center border',
+            dark ? 'border-white/20 text-sky-300' : 'border-blue-200 text-brand',
+          ]}
+        >
+          <Icon name={item.icon} size={20} />
+        </span>
+        <div>
+          <p class="font-display text-[1.2rem] leading-tight sm:text-[1.3rem]">{item.title}</p>
+          <p
+            class:list={[
+              'mt-1.5 max-w-[18rem] text-[0.84rem] leading-snug',
+              dark ? 'text-blue-200/75' : 'text-text-2',
+            ]}
+          >
+            {item.detail}
+          </p>
+        </div>
+      </div>
+    ))}
+  </Container>
+</div>

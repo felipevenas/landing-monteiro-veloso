@@ -14,6 +14,29 @@ const leadDelivery =
 const errors: string[] = [];
 const warnings: string[] = [];
 
+const placesKey = (env.GOOGLE_PLACES_API_KEY || process.env.GOOGLE_PLACES_API_KEY || '').trim();
+const placeId = (
+  env.GOOGLE_PLACE_ID ||
+  process.env.GOOGLE_PLACE_ID ||
+  site.geo.placeId.value
+).trim();
+
+if (!placeId) {
+  errors.push(
+    'site.geo.placeId (ou GOOGLE_PLACE_ID) está vazio: a seção de avaliações do Google não tem perfil para consultar.',
+  );
+} else if (!/^ChIJ[A-Za-z0-9_-]{10,}$/.test(placeId)) {
+  errors.push(
+    `Place ID do Google em formato inesperado: "${placeId}". Use o valor "ChIJ..." do Place ID Finder.`,
+  );
+}
+
+if (!placesKey) {
+  errors.push(
+    'GOOGLE_PLACES_API_KEY está vazia: configure a chave da Places API (New) para carregar as avaliações reais do Google.',
+  );
+}
+
 for (const entry of configFields) {
   const pending = isPending(entry.field) || entry.field.value.includes('[PREENCHER]');
   if (!pending) continue;

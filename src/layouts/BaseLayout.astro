@@ -20,7 +20,7 @@ const { metadata, jsonLd = [] } = Astro.props;
 <html lang="pt-BR" data-consent-version={publicEnv.consentVersion}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <Seo metadata={metadata} jsonLd={jsonLd} />
 
     <link rel="icon" href="/favicon.png" type="image/png" />
@@ -37,7 +37,7 @@ const { metadata, jsonLd = [] } = Astro.props;
 
     <script is:inline src="/scripts/boot.js"></script>
   </head>
-  <body>
+  <body id="topo">
     <a class="skip-link" href="#conteudo">
       Pular para o conteúdo
     </a>

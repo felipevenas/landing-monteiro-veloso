@@ -1,0 +1,260 @@
+---
+import Button from '@/shared/ui/Button.astro';
+import Container from '@/shared/ui/Container.astro';
+import Icon from '@/shared/ui/Icon.astro';
+import Section from '@/shared/ui/Section.astro';
+import SectionHeading from '@/shared/ui/SectionHeading.astro';
+import { googleReviewsUrl } from '@/shared/config/site';
+import { getCuratedReviews, getGoogleReviews } from '@/features/reviews';
+import Stars from '@/features/reviews/ui/Stars.astro';
+
+type Background = 'white' | 'paper' | 'blue' | 'navy' | 'ink';
+
+interface Props {
+  id?: string;
+  background?: Background;
+  eyebrow: string;
+  title: string;
+  description: string;
+  ratingLabel: string;
+  cta: string;
+  disclaimer: string;
+}
+
+const {
+  id = 'avaliacoes',
+  background = 'paper',
+  eyebrow,
+  title,
+  description,
+  ratingLabel,
+  cta,
+  disclaimer,
+} = Astro.props;
+
+const headingId = `${id}-title`;
+const data = getGoogleReviews();
+const apiReviews = data?.reviews ?? [];
+const reviews =
+  apiReviews.length > 0
+    ? apiReviews.map(({ author, relativeDate, text }) => ({ author, relativeDate, text }))
+    : getCuratedReviews();
+const rating = data?.rating ?? 0;
+const userRatingCount = data?.userRatingCount ?? 0;
+const hasRating = rating > 0;
+const reviewsUrl = googleReviewsUrl() ?? data?.googleMapsUri ?? null;
+const ratingText = hasRating ? rating.toFixed(1).replace('.', ',') : '';
+const ratingLabelText = userRatingCount === 1 ? 'avaliação no Google' : ratingLabel;
+const total = reviews.length;
+
+function initials(name: string): string {
+  return name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? '')
+    .join('');
+}
+---
+
+<Section id={id} background={background} labelledby={headingId}>
+  <Container>
+    <div class="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <SectionHeading id={headingId} eyebrow={eyebrow} title={title} description={description} />
+
+        {hasRating && (
+          <div class="mt-8 flex items-center gap-4 border-y border-border py-5">
+            <span class="font-display text-5xl leading-none text-ink">{ratingText}</span>
+            <div>
+              <Stars rating={rating} size={16} />
+              <p class="mt-1.5 text-sm text-text-2">
+                {userRatingCount} {ratingLabelText}
+              </p>
+            </div>
+          </div>
+        )}
+
+        <div class="mt-6 flex items-center gap-2.5">
+          <svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true" class="shrink-0">
+            <path
+              fill="#EA4335"
+              d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+            ></path>
+            <path
+              fill="#4285F4"
+              d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"
+            ></path>
+            <path
+              fill="#FBBC05"
+              d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
+            ></path>
+            <path
+              fill="#34A853"
+              d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+            ></path>
+          </svg>
+          <span class="text-sm font-bold text-ink">Avaliações do Google</span>
+        </div>
+
+        {reviewsUrl && (
+          <Button href={reviewsUrl} variant="outline" size="md" class="mt-5">
+            {cta}
+          </Button>
+        )}
+      </div>
+
+      <div class="min-w-0">
+        {total > 0 ? (
+          <div
+            class="w-full"
+            data-reviews-carousel
+            aria-roledescription="carrossel"
+            aria-label="Avaliações de clientes no Google"
+          >
+            <div class="overflow-hidden border border-border bg-paper">
+              <div
+                class="flex transition-transform duration-500 ease-out motion-reduce:transition-none"
+                data-reviews-track
+              >
+                {reviews.map((review, index) => (
+                  <article
+                    class="flex w-full shrink-0 flex-col p-6 sm:p-8"
+                    data-review-slide
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`${index + 1} de ${total}`}
+                    aria-hidden={index === 0 ? 'false' : 'true'}
+                    inert={index === 0 ? undefined : true}
+                  >
+                    <span
+                      class="block font-display text-5xl leading-none text-blue-200"
+                      aria-hidden="true"
+                    >
+                      “
+                    </span>
+                    <blockquote class="mt-2 flex-1 whitespace-pre-line font-display text-[1.2rem] leading-[1.55] text-ink sm:text-[1.4rem]">
+                      {review.text}
+                    </blockquote>
+                    <footer class="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
+                      <div class="flex min-w-0 items-center gap-3">
+                        <span
+                          class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[0.72rem] font-bold text-brand"
+                          aria-hidden="true"
+                        >
+                          {initials(review.author)}
+                        </span>
+                        <div class="min-w-0">
+                          <p class="truncate text-sm font-bold text-ink">{review.author}</p>
+                          {review.relativeDate && (
+                            <p class="text-xs text-text-2">{review.relativeDate}</p>
+                          )}
+                        </div>
+                      </div>
+                      <span class="hidden items-center gap-1.5 text-[0.66rem] font-extrabold uppercase tracking-[0.16em] text-text-2 sm:inline-flex">
+                        <svg
+                          viewBox="0 0 48 48"
+                          width="14"
+                          height="14"
+                          aria-hidden="true"
+                          class="shrink-0"
+                        >
+                          <path
+                            fill="#EA4335"
+                            d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+                          ></path>
+                          <path
+                            fill="#4285F4"
+                            d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"
+                          ></path>
+                          <path
+                            fill="#FBBC05"
+                            d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
+                          ></path>
+                          <path
+                            fill="#34A853"
+                            d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+                          ></path>
+                        </svg>
+                        Google
+                      </span>
+                    </footer>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div class="mt-4 flex flex-wrap items-center justify-between gap-4">
+              <p class="text-xs font-semibold text-text-2" data-reviews-status aria-live="polite">
+                Avaliação 1 de {total}
+              </p>
+
+              <div class="flex items-center gap-4">
+                <div class="flex items-center gap-1">
+                  {reviews.map((_, index) => (
+                    <button
+                      type="button"
+                      class="inline-flex size-7 items-center justify-center"
+                      data-reviews-dot
+                      data-active={index === 0 ? 'true' : 'false'}
+                      aria-label={`Ir para a avaliação ${index + 1}`}
+                      aria-current={index === 0 ? 'true' : 'false'}
+                    >
+                      <span
+                        class="size-2 rounded-full bg-blue-200 transition"
+                        aria-hidden="true"
+                      ></span>
+                    </button>
+                  ))}
+                </div>
+
+                <div class="flex gap-2">
+                  <button
+                    type="button"
+                    class="inline-flex size-11 items-center justify-center border border-border-interactive text-brand transition hover:bg-blue-50"
+                    data-reviews-prev
+                    aria-label="Avaliação anterior"
+                  >
+                    <Icon name="lucide:arrow-left" size={18} />
+                  </button>
+                  <button
+                    type="button"
+                    class="inline-flex size-11 items-center justify-center border border-border-interactive text-brand transition hover:bg-blue-50"
+                    data-reviews-next
+                    aria-label="Próxima avaliação"
+                  >
+                    <Icon name="lucide:arrow-right" size={18} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div class="border-y border-border py-8">
+            <p class="max-w-md text-sm leading-relaxed text-text-2">
+              As avaliações estão publicadas no perfil do escritório no Google. Abra o perfil para
+              ler os comentários mais recentes.
+            </p>
+            {reviewsUrl && (
+              <a
+                class="mt-4 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-brand underline decoration-blue-200 underline-offset-4 transition hover:text-navy-800"
+                href={reviewsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {cta}
+                <span aria-hidden="true">→</span>
+              </a>
+            )}
+          </div>
+        )}
+
+        <p class="mt-6 text-xs leading-relaxed text-text-2">{disclaimer}</p>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<script>
+  import '@/features/reviews/ui/reviews-carousel.client';
+</script>

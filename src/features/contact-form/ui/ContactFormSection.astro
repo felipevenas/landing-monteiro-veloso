@@ -18,6 +18,7 @@ interface Props {
   formTitle: string;
   formDescription: string;
   situationLabel: string;
+  note?: string;
 }
 
 const {
@@ -30,6 +31,7 @@ const {
   formTitle,
   formDescription,
   situationLabel,
+  note,
 } = Astro.props;
 ---
 
@@ -54,6 +56,12 @@ const {
             </li>
           ))}
         </ul>
+
+        {note && (
+          <p class="mt-6 max-w-md border-t border-white/10 pt-5 text-xs leading-relaxed text-blue-200/65">
+            {note}
+          </p>
+        )}
 
         <div class="mt-9 border-t border-white/10 pt-7">
           <p class="text-sm font-medium text-blue-200/80">Prefere conversar agora?</p>

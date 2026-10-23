@@ -1,18 +1,19 @@
 ---
 import LandingLayout from '@/layouts/LandingLayout.astro';
 import Hero from '@/features/busca-apreensao/ui/Hero.astro';
-import TrustBar from '@/features/busca-apreensao/ui/TrustBar.astro';
-import Empathy from '@/features/busca-apreensao/ui/Empathy.astro';
+import Timeline from '@/features/busca-apreensao/ui/Timeline.astro';
 import Bio from '@/features/busca-apreensao/ui/Bio.astro';
-import Education from '@/features/busca-apreensao/ui/Education.astro';
 import Services from '@/features/busca-apreensao/ui/Services.astro';
-import Checklist from '@/features/busca-apreensao/ui/Checklist.astro';
-import Process from '@/features/busca-apreensao/ui/Process.astro';
-import Differentials from '@/features/busca-apreensao/ui/Differentials.astro';
 import Faq from '@/features/busca-apreensao/ui/Faq.astro';
-import Location from '@/features/busca-apreensao/ui/Location.astro';
+import ReviewsSection from '@/features/reviews/ui/ReviewsSection.astro';
 import ContactFormSection from '@/features/contact-form/ui/ContactFormSection.astro';
-import { contactSection, faq, landingSeo } from '@/features/busca-apreensao/content';
+import TrustBar from '@/shared/ui/TrustBar.astro';
+import {
+  contactSection,
+  faq,
+  landingReviews,
+  landingSeo,
+} from '@/features/busca-apreensao/content';
 import { createMetadata } from '@/shared/seo/metadata';
 import {
   breadcrumbSchema,
@@ -45,15 +46,11 @@ const jsonLd = [
 
 <LandingLayout metadata={metadata} jsonLd={jsonLd}>
   <Hero />
-  <TrustBar />
-  <Empathy />
-  <Bio />
-  <Education />
+  <TrustBar tone="light" />
+  <Timeline />
   <Services />
-  <Checklist />
-  <Process />
-  <Differentials />
+  <Bio />
   <Faq />
-  <Location />
+  <ReviewsSection background="white" {...landingReviews} />
   <ContactFormSection {...contactSection} />
 </LandingLayout>
