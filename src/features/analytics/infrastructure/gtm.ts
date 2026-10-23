@@ -26,7 +26,12 @@ export function updateConsent(granted: boolean): void {
 }
 
 export function loadGtm(): void {
-  if (!publicEnv.gtmId || document.getElementById(GTM_SCRIPT_ID)) return;
+  if (!publicEnv.gtmId) return;
+
+  if (document.getElementById(GTM_SCRIPT_ID)) {
+    updateConsent(true);
+    return;
+  }
 
   setDefaultConsent();
   updateConsent(true);

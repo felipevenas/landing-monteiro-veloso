@@ -52,8 +52,9 @@ function onConsentChange(event: Event): void {
   const detail = (event as CustomEvent<{ decision?: string }>).detail;
   if (detail?.decision === 'granted' && hasAnalyticsConsent()) {
     initAnalytics();
+    return;
   }
-  if (detail?.decision === 'denied') {
+  if (detail?.decision === 'denied' || detail?.decision === 'undecided') {
     updateConsent(false);
   }
 }

@@ -14,7 +14,7 @@ export const publicEnv = {
   n8nWebhookUrl: (env.PUBLIC_N8N_WEBHOOK_URL ?? '').trim(),
   gtmId: (env.PUBLIC_GTM_ID ?? '').trim(),
   formEnabled: bool(env.PUBLIC_FORM_ENABLED, true),
-  consentVersion: (env.PUBLIC_CONSENT_VERSION ?? '2026-10').trim(),
+  consentVersion: (env.PUBLIC_CONSENT_VERSION ?? '2026-10.1').trim(),
   n8nTimeoutMs: int(env.PUBLIC_N8N_TIMEOUT_MS, 12_000),
   leadDelivery: (env.PUBLIC_LEAD_DELIVERY ?? '').trim().toLowerCase(),
 } as const;

@@ -51,3 +51,21 @@ for (const width of [320, 360, 390, 768, 1024, 1280, 1366, 1440, 1920, 2560]) {
     );
   });
 }
+
+test('Instagram carrega embeds sem overflow em 320px e com nome acessível', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Aceitar', exact: true }).click();
+  await page.locator('#instagram').scrollIntoViewIfNeeded();
+
+  await expect.poll(() => page.locator('#instagram iframe').count()).toBeGreaterThan(0);
+
+  await expect
+    .poll(() => page.evaluate(() => document.documentElement.scrollWidth))
+    .toBeLessThanOrEqual(321);
+  await expect.poll(() => page.evaluate(() => document.body.scrollWidth)).toBeLessThanOrEqual(321);
+
+  await expect
+    .poll(async () => (await page.locator('#instagram iframe').first().getAttribute('title')) ?? '')
+    .not.toBe('');
+});

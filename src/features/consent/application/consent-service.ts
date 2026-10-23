@@ -3,13 +3,31 @@ import {
   CONSENT_EVENT,
   createConsent,
   type ConsentDecision,
+  type ConsentRecord,
   type ConsentState,
 } from '../domain/consent';
-import { readStoredConsent, writeStoredConsent } from '../infrastructure/local-storage';
+import {
+  clearStoredConsent,
+  readStoredConsent,
+  writeStoredConsent,
+} from '../infrastructure/local-storage';
 
-function currentRecord() {
-  const record = readStoredConsent();
-  return record?.version === publicEnv.consentVersion ? record : null;
+let memoryRecord: ConsentRecord | null = null;
+let memoryOnly = false;
+
+function currentRecord(): ConsentRecord | null {
+  if (memoryOnly) {
+    return memoryRecord?.version === publicEnv.consentVersion ? memoryRecord : null;
+  }
+
+  const stored = readStoredConsent();
+  if (stored?.version === publicEnv.consentVersion) {
+    memoryRecord = stored;
+    return stored;
+  }
+
+  memoryRecord = null;
+  return null;
 }
 
 export function getConsentState(): ConsentState {
@@ -26,7 +44,8 @@ export function hasAnalyticsConsent(): boolean {
 
 export function setConsentDecision(decision: ConsentDecision): void {
   const record = createConsent(decision, publicEnv.consentVersion);
-  writeStoredConsent(record);
+  memoryRecord = record;
+  memoryOnly = !writeStoredConsent(record);
   document.documentElement.setAttribute('data-consent', decision);
   window.dispatchEvent(
     new CustomEvent(CONSENT_EVENT, {
@@ -36,5 +55,9 @@ export function setConsentDecision(decision: ConsentDecision): void {
 }
 
 export function reopenConsentBanner(): void {
+  memoryRecord = null;
+  memoryOnly = false;
+  clearStoredConsent();
   document.documentElement.setAttribute('data-consent', 'undecided');
+  window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: { decision: 'undecided' } }));
 }

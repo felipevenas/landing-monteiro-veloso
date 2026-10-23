@@ -16,6 +16,22 @@ export function readStoredConsent(): ConsentRecord | null {
   return parseConsent(store.getItem(CONSENT_STORAGE_KEY));
 }
 
-export function writeStoredConsent(record: ConsentRecord): void {
-  storage()?.setItem(CONSENT_STORAGE_KEY, JSON.stringify(record));
+export function writeStoredConsent(record: ConsentRecord): boolean {
+  try {
+    const store = storage();
+    if (!store) return false;
+    store.setItem(CONSENT_STORAGE_KEY, JSON.stringify(record));
+    return true;
+  } catch {
+    /* localStorage indisponível ou cheio: o estado em memória continua válido na sessão. */
+    return false;
+  }
+}
+
+export function clearStoredConsent(): void {
+  try {
+    storage()?.removeItem(CONSENT_STORAGE_KEY);
+  } catch {
+    /* localStorage indisponível: nada a limpar. */
+  }
 }
