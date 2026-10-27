@@ -6,8 +6,17 @@
   "headers": [
     {
       "source": "/(.*)",
+      "has": [{ "type": "host", "value": { "suf": ".vercel.app" } }],
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
     }
   ],
-  "redirects": [{ "source": "/.htaccess", "destination": "/404.html", "permanent": false }]
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.monteiroveloso.com" }],
+      "destination": "https://monteiroveloso.com/:path*",
+      "permanent": true
+    },
+    { "source": "/.htaccess", "destination": "/404.html", "permanent": false }
+  ]
 }

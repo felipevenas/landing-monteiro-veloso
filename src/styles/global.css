@@ -207,6 +207,12 @@
     max-width: 29rem;
   }
 
+  @media (min-width: 1024px) {
+    .hero-media {
+      max-width: none;
+    }
+  }
+
   .hero-trust {
     display: flex;
   }
@@ -224,10 +230,6 @@
 
     .hero-shell {
       padding-block: 2rem;
-    }
-
-    .hero-media {
-      max-width: 22rem;
     }
 
     .hero-trust {

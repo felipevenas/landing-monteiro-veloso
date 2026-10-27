@@ -7,7 +7,7 @@ import { publishable } from '@/shared/config/field';
 import { routes } from '@/shared/config/routes';
 import { site } from '@/shared/config/site';
 import { escapeHtml } from '@/shared/lib/html';
-import homeImage from '@/assets/images/img-roberta.jpg';
+import homeImage from '@/assets/images/equipe-monteiro-veloso.jpg';
 import { homeHero } from '../content';
 
 const oab = publishable(site.lawyer.oab);
@@ -39,32 +39,32 @@ const titleHtml = `${escapeHtml(homeHero.titleBefore)}<span class="text-brand">$
       </div>
     </div>
 
-    <figure class="hero-media mx-auto w-full lg:mx-0 lg:ml-auto">
-      <div class="relative aspect-[4/5] overflow-hidden border border-border bg-blue-50">
+    <figure class="hero-media mx-auto w-full lg:mx-0 lg:ml-auto lg:max-w-none">
+      <div class="relative aspect-[4/3] overflow-hidden border border-border bg-paper-alt">
         <Picture
           src={homeImage}
           alt={homeHero.imageAlt}
           formats={['avif', 'webp']}
           fallbackFormat="webp"
-          widths={[420, 640, 848]}
-          sizes="(min-width: 1024px) 400px, 90vw"
-          width={848}
-          height={1264}
+          widths={[480, 768, 1200]}
+          sizes="(min-width: 1024px) 505px, (min-width: 640px) 464px, calc(100vw - 2.5rem)"
+          width={1200}
+          height={800}
           loading="eager"
           fetchpriority="high"
           decoding="async"
-          class="h-full w-full object-cover object-[center_18%]"
+          class="h-full w-full object-cover object-[48%_center]"
         />
       </div>
-      <figcaption class="flex items-end justify-between gap-4 border-x border-b border-border bg-paper-alt px-4 py-3">
-        <div>
+      <figcaption class="flex flex-wrap items-end justify-between gap-x-4 gap-y-1 border-x border-b border-border bg-paper-alt px-4 py-3">
+        <div class="min-w-0">
           <p class="font-display text-lg text-ink">{homeHero.imageCaption}</p>
           <p class="mt-0.5 text-[0.7rem] font-semibold text-blue-600">
             {homeHero.imageRole}
             {oab ? ` / OAB/BA ${oab}` : ''}
           </p>
         </div>
-        <p class="text-right text-[0.65rem] font-semibold leading-tight text-text-2">
+        <p class="shrink-0 text-right text-[0.65rem] font-semibold leading-tight text-text-2">
           Salvador
           <br />
           Bahia

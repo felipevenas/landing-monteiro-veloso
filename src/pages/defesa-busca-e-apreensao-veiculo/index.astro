@@ -3,6 +3,7 @@ import LandingLayout from '@/layouts/LandingLayout.astro';
 import Hero from '@/features/busca-apreensao/ui/Hero.astro';
 import Timeline from '@/features/busca-apreensao/ui/Timeline.astro';
 import Bio from '@/features/busca-apreensao/ui/Bio.astro';
+import InstagramCarousel from '@/features/instagram/ui/InstagramCarousel.astro';
 import Services from '@/features/busca-apreensao/ui/Services.astro';
 import Faq from '@/features/busca-apreensao/ui/Faq.astro';
 import ReviewsSection from '@/features/reviews/ui/ReviewsSection.astro';
@@ -11,6 +12,7 @@ import TrustBar from '@/shared/ui/TrustBar.astro';
 import {
   contactSection,
   faq,
+  landingInstagram,
   landingReviews,
   landingSeo,
 } from '@/features/busca-apreensao/content';
@@ -50,6 +52,7 @@ const jsonLd = [
   <Timeline />
   <Services />
   <Bio />
+  <InstagramCarousel feed={landingInstagram} />
   <Faq />
   <ReviewsSection background="white" {...landingReviews} />
   <ContactFormSection {...contactSection} />

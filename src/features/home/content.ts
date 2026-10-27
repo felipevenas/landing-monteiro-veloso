@@ -18,9 +18,9 @@ export const homeHero = {
   primaryCta: 'Falar com a advogada',
   secondaryCta: 'Meu carro foi apreendido',
   imageAlt:
-    'Advogada Roberta Veloso sentada à mesa do escritório, com documentos à frente, olhando para a câmera',
-  imageCaption: 'Dra. Roberta Veloso',
-  imageRole: 'Advogada',
+    'Equipe de cinco advogadas da Monteiro Veloso Advogados reunida no escritório, em Salvador, em frente a um painel de madeira ripada',
+  imageCaption: 'Equipe Monteiro Veloso',
+  imageRole: 'Direito bancário',
 };
 
 export const homeAreas = {

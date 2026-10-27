@@ -137,7 +137,25 @@ export const bio = {
     'É ela quem lê o contrato, define a estratégia e responde as suas mensagens. O escritório fica no Comércio, em Salvador, com atendimento online em todo o Brasil.',
   ],
   imageAlt:
-    'Retrato da advogada Roberta Veloso, de blusa vermelha, com a mão apoiada no queixo, em frente a um painel de madeira',
+    'Dra. Roberta Veloso, de pé, de blusa rosa, segurando um tablet e uma caneta stylus em frente ao painel de madeira do escritório',
+};
+
+export const landingInstagram = {
+  eyebrow: 'Instagram · busca e apreensão',
+  title: 'Busca e apreensão, explicada em vídeo.',
+  description:
+    'Três vídeos curtos sobre busca e apreensão de veículo, direto do perfil da Monteiro Veloso Advogados.',
+  profileUrl: site.social.instagram,
+  profileLabel: '@monteirovelosoadvogados',
+  posts: [
+    'https://www.instagram.com/p/DaRHQ34glTZ/',
+    'https://www.instagram.com/p/DZdvNcmAU8A/',
+    'https://www.instagram.com/p/DDsaWHvJuHn/',
+  ],
+  trackLabel: 'Vídeos sobre busca e apreensão no Instagram',
+  consentNote:
+    'Os vídeos são carregados pelo Instagram. Eles só aparecem depois que você aceita os cookies.',
+  fallbackNote: 'Se o vídeo não carregar, abra o post diretamente no Instagram.',
 };
 
 export const checklist = {

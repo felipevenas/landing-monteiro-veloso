@@ -33,8 +33,8 @@ As fotos são exibidas em cores originais. Sobre elas, apenas scrims navy para g
 
 ## Layout
 
-- **Home:** hero claro com retrato, áreas de atuação em lista editorial, avaliações reais do Google, carrossel de posts do Instagram, localização com horário/mapa e contato. Faixas de confiança, escritório, processo, diferenciais, dúvidas e cobertura nacional foram removidas para enxugar a leitura.
-- **Landing:** hero escuro com foto do veículo à direita, faixa de confiança clara, faixa fotográfica com a linha do tempo da apreensão, o que o banco não conta, serviços com foto do contrato, advogada com retrato grande, checklist em formato de pasta, processo, comparação, dúvidas, localização e contato.
+- **Home:** hero claro com foto da equipe de advogadas, áreas de atuação em lista editorial, avaliações reais do Google, carrossel de posts do Instagram, localização com horário/mapa e contato. Faixas de confiança, escritório, processo, diferenciais, dúvidas e cobertura nacional foram removidas para enxugar a leitura.
+- **Landing:** hero escuro com foto do veículo à direita, faixa de confiança clara, faixa fotográfica com a linha do tempo da apreensão, o que o banco não conta, serviços com foto do contrato, advogada com retrato grande, carrossel do Instagram com vídeos de busca e apreensão, checklist em formato de pasta, processo, comparação, dúvidas, localização e contato.
 - Container de 1180 px, com margens generosas em 27".
 - Faixas de contraste alternam `ink`/`navy` e papel. Fotografia é usada como estrutura, não como decoração.
 - Régua azul de 1 px antes dos títulos e divisórias de 1 px entre colunas, em vez de cards com sombra.
@@ -44,14 +44,15 @@ As fotos são exibidas em cores originais. Sobre elas, apenas scrims navy para g
 
 ## Fotografia
 
-Quatro imagens sustentam a narrativa:
+Cinco imagens sustentam a narrativa:
 
 1. **Carro apreendido (vertical):** hero da landing e faixa mobile.
 2. **Carro apreendido (panorâmica):** faixa da linha do tempo na landing e faixa de impacto na home.
 3. **Contrato de financiamento:** serviços, com calculadora, chaves e mão apontando cláusula.
-4. **Retrato da advogada:** hero da home e seção “quem vai entrar nessa com você”.
+4. **Equipe de advogadas:** foto da equipe no hero da home.
+5. **Retrato da advogada:** Bio da landing.
 
-Regras de recorte: o veículo fica à direita na panorâmica, deixando o terço esquerdo para o texto. O retrato usa `object-position` no rosto. As imagens têm `width`/`height` e são servidas em AVIF/WebP pelo Astro.
+Regras de recorte: o veículo fica à direita na panorâmica, deixando o terço esquerdo para o texto. A foto da equipe usa 4:3, com `object-position` levemente à esquerda do centro para preservar as cinco advogadas. O retrato usa 2:3, com `object-position` no rosto. As imagens têm `width`/`height` e são servidas em AVIF/WebP pelo Astro.
 
 ## Movimento e interação
 
@@ -62,7 +63,7 @@ Regras de recorte: o veículo fica à direita na panorâmica, deixando o terço 
 ## Responsividade
 
 - Home/LP testadas em 320, 360, 390, 768, 1024, 1280, 1366, 1440, 1920 e 2560 px.
-- Em notebooks de 1024–1439 px, o hero reduz a tipografia, o padding e a foto para manter CTA e imagem na primeira dobra.
+- Em notebooks de 1024–1439 px, o hero reduz a tipografia e o padding para manter CTA e imagem na primeira dobra. A foto da equipe ocupa a coluna inteira a partir de 1024 px.
 - No hero da landing, o texto ocupa no máximo 52% do container para não invadir a foto em 1024 px.
 - Mapa sem proporção fixa no mobile; o texto quebra dentro do card.
 - O carrossel do Instagram usa `scroll-snap`, setas no desktop e swipe no mobile; os cards têm largura máxima de 20rem.
