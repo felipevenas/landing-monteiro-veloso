@@ -12,6 +12,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ### 🎨 Alterado
 
 - **Copy da landing de busca e apreensão** revisada: novo hero, faixa de diferenciais e seção de prazos, com foco em orientação e análise individualizada.
+- **Faixa de diferenciais da home** alinhada aos textos revisados da landing.
 - **E-mail de contato** atualizado para `roberta@monteiroveloso.com` no site, no rodapé, na política de privacidade e no formulário em modo `mailto`.
 
 ## [Não lançado] - 2026-10-23

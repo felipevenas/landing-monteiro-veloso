@@ -15,7 +15,6 @@ import {
   landingInstagram,
   landingReviews,
   landingSeo,
-  landingTrustPoints,
 } from '@/features/busca-apreensao/content';
 import { createMetadata } from '@/shared/seo/metadata';
 import {
@@ -49,7 +48,7 @@ const jsonLd = [
 
 <LandingLayout metadata={metadata} jsonLd={jsonLd}>
   <Hero />
-  <TrustBar tone="light" points={landingTrustPoints} />
+  <TrustBar tone="light" />
   <Timeline />
   <Services />
   <Bio />
