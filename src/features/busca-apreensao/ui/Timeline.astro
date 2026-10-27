@@ -47,6 +47,10 @@ import { timeline } from '../content';
           {timeline.description}
         </p>
 
+        <p class="mt-4 max-w-lg border-l-2 border-sky-300 pl-3 text-sm font-semibold leading-relaxed text-white">
+          {timeline.emphasis}
+        </p>
+
         <div class="mt-6 flex items-center gap-4 border-y border-white/15 py-4">
           <span class="font-display text-5xl leading-none text-sky-300">
             {timeline.highlight.value}
@@ -63,10 +67,10 @@ import { timeline } from '../content';
 
         <a
           href="#contato"
-          class="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-sky-300 underline decoration-sky-300/30 underline-offset-4 transition hover:text-white"
+          class="mt-5 inline-flex min-h-11 max-w-md items-start gap-2 text-sm font-bold leading-snug text-sky-300 underline decoration-sky-300/30 underline-offset-4 transition hover:text-white"
         >
-          {timeline.cta}
-          <Icon name="lucide:arrow-right" size={16} />
+          <span>{timeline.cta}</span>
+          <Icon name="lucide:arrow-right" size={16} class="mt-0.5 shrink-0" />
         </a>
       </div>
     </div>

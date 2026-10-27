@@ -12,16 +12,42 @@ export const landingSeo = {
   ],
 };
 
+export const landingTrustPoints = [
+  {
+    icon: 'lucide:file-search',
+    title: 'Análise individualizada',
+    detail:
+      'Analisamos o contrato e o processo de forma individualizada, considerando as particularidades de cada cliente.',
+  },
+  {
+    icon: 'lucide:lock-keyhole',
+    title: 'Sigilo profissional',
+    detail: 'Suas informações são tratadas com o sigilo ético da advocacia.',
+  },
+  {
+    icon: 'lucide:user-round-check',
+    title: 'Atendimento direto',
+    detail:
+      'Atendimento direto com a advogada responsável pelo seu caso, com orientação individualizada.',
+  },
+] as const;
+
 export const hero = {
   label: 'Busca e apreensão de veículo',
   location: 'Salvador · todo o Brasil',
-  titleBefore: 'Carro apreendido? ',
+  presence: 'Salvador — atendimento presencial',
+  online: 'Atendimento on-line em todo o Brasil.',
+  titleBefore: 'Seu veículo foi apreendido? ',
   titleHighlight: 'Cada dia conta.',
   titleAfter: '',
   subtitle:
-    'O banco tem prazo, procedimento e equipe jurídica. Nós conhecemos o caminho que ele usa — e onde ele erra. Análise do contrato e do processo, direto com a advogada, em Salvador ou online.',
-  primaryCta: 'Falar com a advogada agora',
-  secondaryCta: 'Entender meu prazo',
+    'O banco tem prazos, procedimentos e uma equipe jurídica. E você não precisa enfrentar essa situação sem orientação.',
+  subtitleSecondary:
+    'A pressão pelas cobranças e o medo de perder o veículo tornam tudo mais difícil. Uma análise jurídica do contrato e do processo pode ajudar a identificar irregularidades e avaliar as medidas cabíveis para defender seus direitos.',
+  specialty:
+    'Atuação especializada em busca e apreensão de veículos e revisão de contratos de financiamento.',
+  service: 'Atendimento direto com a advogada, em Salvador ou on-line para todo o Brasil.',
+  primaryCta: 'Falar com a advogada especialista agora',
   imageAlt:
     'Carro prata sendo içado pela plataforma de um guincho em uma rua brasileira ao amanhecer',
   imageCaption: 'Dra. Roberta Veloso',
@@ -32,9 +58,10 @@ export const hero = {
 export const timeline = {
   eyebrow: 'O caminho até o guincho',
   bannerNote: 'Busca e apreensão · Decreto-Lei 911/69',
-  title: 'Ninguém te avisa quando o prazo começa a correr.',
+  title: 'Se o seu veículo foi apreendido, os prazos já começaram a correr!',
   description:
-    'A busca e apreensão segue uma sequência. Cada etapa abre — e fecha — possibilidades de defesa. Saber onde você está muda o que ainda dá para fazer.',
+    'A execução da liminar de busca e apreensão dá início a prazos processuais importantes. Saber em que etapa está o processo é essencial para identificar as medidas jurídicas cabíveis e avaliar as possibilidades de defesa.',
+  emphasis: 'Não espere para entender sua situação.',
   steps: [
     {
       number: '01',
@@ -68,7 +95,7 @@ export const timeline = {
     text: 'é o prazo legal, contado da apreensão, para pagar a dívida integral e tentar reaver o veículo.',
   },
   note: 'Conteúdo informativo. Prazos e efeitos dependem do contrato e do processo de cada caso.',
-  cta: 'Não sei em que etapa estou',
+  cta: 'Fale com a advogada e saiba quais medidas podem ser avaliadas no seu caso.',
 };
 
 export const empathy = {
