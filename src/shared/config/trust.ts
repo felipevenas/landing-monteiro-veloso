@@ -2,16 +2,18 @@ export const trustPoints = [
   {
     icon: 'lucide:file-search',
     title: 'Análise individualizada',
-    detail: 'Cada contrato e cada processo lidos por inteiro. Não existe caso padrão.',
+    detail:
+      'Analisamos o contrato e o processo de forma individualizada, considerando as particularidades de cada cliente.',
   },
   {
     icon: 'lucide:lock-keyhole',
     title: 'Sigilo profissional',
-    detail: 'O que você conta fica entre você e a advogada. Do primeiro contato ao fim.',
+    detail: 'Suas informações são tratadas com o sigilo ético da advocacia.',
   },
   {
     icon: 'lucide:user-round-check',
     title: 'Atendimento direto',
-    detail: 'Você fala com a advogada responsável, sem intermediários e sem repasses.',
+    detail:
+      'Atendimento direto com a advogada responsável pelo seu caso, com orientação individualizada.',
   },
 ] as const;

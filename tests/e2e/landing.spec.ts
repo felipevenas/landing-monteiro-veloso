@@ -339,6 +339,24 @@ test.describe('Home, privacidade e 404', () => {
     await expect(page.locator('#instagram .instagram-media')).toHaveCount(4);
   });
 
+  test('home exibe os diferenciais atualizados', async ({ page }) => {
+    await page.goto('/');
+
+    await expect(
+      page.getByText(
+        'Analisamos o contrato e o processo de forma individualizada, considerando as particularidades de cada cliente.',
+      ),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Suas informações são tratadas com o sigilo ético da advocacia.'),
+    ).toBeVisible();
+    await expect(
+      page.getByText(
+        'Atendimento direto com a advogada responsável pelo seu caso, com orientação individualizada.',
+      ),
+    ).toBeVisible();
+  });
+
   test('home é independente e só expõe a landing no rodapé', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('main h1')).toHaveCount(1);
