@@ -4,6 +4,7 @@ import Container from '@/shared/ui/Container.astro';
 import Section from '@/shared/ui/Section.astro';
 import Icon from '@/shared/ui/Icon.astro';
 import { routes } from '@/shared/config/routes';
+import { site } from '@/shared/config/site';
 import { createMetadata } from '@/shared/seo/metadata';
 import {
   breadcrumbSchema,
@@ -80,9 +81,9 @@ const jsonLd = [
           Para exercer direitos ou tirar dúvidas sobre esta política, escreva para
           <a
             class="ml-1 font-bold text-brand underline decoration-blue-200 underline-offset-4"
-            href="mailto:robertavelosoadv@gmail.com"
+            href={`mailto:${site.email}`}
           >
-            robertavelosoadv@gmail.com
+            {site.email}
           </a>
           .
         </p>

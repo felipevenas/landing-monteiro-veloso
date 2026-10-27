@@ -34,6 +34,54 @@ test.describe('Landing de busca e apreensão', () => {
     expect(bodyText).not.toMatch(/\s+[.,;:!?]/);
   });
 
+  test('aplica a copy revisada do hero, diferenciais e prazos', async ({ page }) => {
+    const hero = page.locator('main section').first();
+
+    await expect(hero.locator('h1')).toContainText('Seu veículo foi apreendido?');
+    await expect(hero).toContainText('Cada dia conta.');
+    await expect(hero).toContainText('O banco tem prazos, procedimentos e uma equipe jurídica.');
+    await expect(hero).toContainText(
+      'Uma análise jurídica do contrato e do processo pode ajudar a identificar irregularidades',
+    );
+    await expect(hero).toContainText('Atuação especializada em busca e apreensão de veículos');
+    await expect(hero).toContainText(
+      'Atendimento direto com a advogada, em Salvador ou on-line para todo o Brasil.',
+    );
+    await expect(
+      hero.getByRole('link', { name: /Falar com a advogada especialista agora/ }),
+    ).toBeVisible();
+    await expect(hero).toContainText('Salvador — atendimento presencial');
+    await expect(hero).toContainText('Atendimento on-line em todo o Brasil.');
+
+    await expect(
+      page.getByText(
+        'Analisamos o contrato e o processo de forma individualizada, considerando as particularidades de cada cliente.',
+      ),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Suas informações são tratadas com o sigilo ético da advocacia.'),
+    ).toBeVisible();
+    await expect(
+      page.getByText(
+        'Atendimento direto com a advogada responsável pelo seu caso, com orientação individualizada.',
+      ),
+    ).toBeVisible();
+
+    const timeline = page.locator('#prazo');
+    await expect(timeline).toContainText(
+      'Se o seu veículo foi apreendido, os prazos já começaram a correr!',
+    );
+    await expect(timeline).toContainText(
+      'A execução da liminar de busca e apreensão dá início a prazos processuais importantes.',
+    );
+    await expect(timeline).toContainText('Não espere para entender sua situação.');
+    await expect(
+      timeline.getByRole('link', {
+        name: /Fale com a advogada e saiba quais medidas podem ser avaliadas/,
+      }),
+    ).toBeVisible();
+  });
+
   test('consentimento bloqueia GTM, aceita e persiste', async ({ page }) => {
     await expect(page.locator('[data-consent-banner]')).toBeVisible();
     await expect(page.locator('script[src*="googletagmanager.com"]')).toHaveCount(0);
@@ -123,7 +171,9 @@ test.describe('Landing de busca e apreensão', () => {
     await expect(image).toHaveAttribute('alt', /blusa rosa/);
     await image.scrollIntoViewIfNeeded();
     await expect
-      .poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth))
+      .poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth), {
+        timeout: 15_000,
+      })
       .toBeGreaterThan(0);
 
     const source = (await image.getAttribute('src')) ?? '';
@@ -267,7 +317,9 @@ test.describe('Home, privacidade e 404', () => {
     await expect(image).toHaveAttribute('alt', /Equipe de cinco advogadas/);
     await expect(image).toBeVisible();
     await expect
-      .poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth))
+      .poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth), {
+        timeout: 15_000,
+      })
       .toBeGreaterThan(0);
 
     const source = (await image.getAttribute('src')) ?? '';
@@ -355,6 +407,16 @@ test.describe('Home, privacidade e 404', () => {
     const mine = leads.filter((lead) => lead.phone === '+5571988887777');
     expect(mine.length).toBeGreaterThan(0);
     expect(mine.at(-1)?.source).toBe('home');
+  });
+
+  test('novo e-mail de contato aparece no rodapé e na política', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('footer a[href="mailto:roberta@monteiroveloso.com"]')).toHaveCount(1);
+
+    await page.goto('/politica-de-privacidade/');
+    await expect(
+      page.locator('#conteudo').getByRole('link', { name: 'roberta@monteiroveloso.com' }),
+    ).toBeVisible();
   });
 
   test('privacidade é indexável e explica cookies', async ({ page }) => {

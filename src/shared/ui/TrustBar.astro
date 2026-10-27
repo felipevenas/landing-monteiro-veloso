@@ -3,12 +3,19 @@ import Container from '@/shared/ui/Container.astro';
 import Icon from '@/shared/ui/Icon.astro';
 import { trustPoints } from '@/shared/config/trust';
 
+interface TrustPoint {
+  readonly icon: string;
+  readonly title: string;
+  readonly detail: string;
+}
+
 interface Props {
   tone?: 'light' | 'dark';
   class?: string;
+  points?: ReadonlyArray<TrustPoint>;
 }
 
-const { tone = 'light', class: className } = Astro.props;
+const { tone = 'light', class: className, points = trustPoints } = Astro.props;
 const dark = tone === 'dark';
 ---
 
@@ -20,7 +27,7 @@ const dark = tone === 'dark';
   ]}
 >
   <Container class="grid sm:grid-cols-3">
-    {trustPoints.map((item, index) => (
+    {points.map((item, index) => (
       <div
         class:list={[
           'flex items-start gap-4 py-7 sm:py-9',

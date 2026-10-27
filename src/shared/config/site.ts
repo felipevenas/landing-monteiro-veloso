@@ -18,7 +18,7 @@ export const site = {
   domain: 'monteiroveloso.com',
   description:
     'Advocacia em Salvador dedicada à defesa de pessoas físicas contra bancos e financeiras: busca e apreensão de veículo, revisional de financiamento e cobrança abusiva. Atendimento presencial em Salvador e online em todo o Brasil.',
-  email: 'robertavelosoadv@gmail.com',
+  email: 'roberta@monteiroveloso.com',
   lawyer: {
     name: 'Roberta Victoria Monteiro Veloso Santos',
     displayName: 'Dra. Roberta Veloso',

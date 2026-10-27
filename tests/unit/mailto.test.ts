@@ -40,9 +40,9 @@ describe('mensagem de e-mail do lead', () => {
   });
 
   it('monta um mailto com destinatário fixo e campos codificados', () => {
-    const url = buildLeadMailto(lead, 'robertavelosoadv@gmail.com', 'https://monteiroveloso.com');
+    const url = buildLeadMailto(lead, 'roberta@monteiroveloso.com', 'https://monteiroveloso.com');
 
-    expect(url.startsWith('mailto:robertavelosoadv@gmail.com?')).toBe(true);
+    expect(url.startsWith('mailto:roberta@monteiroveloso.com?')).toBe(true);
     expect(url).not.toContain('\n');
 
     const params = new URLSearchParams(url.split('?')[1]);
