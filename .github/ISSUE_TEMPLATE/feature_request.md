@@ -1,41 +1,49 @@
 ---
-name: Solicitação de Funcionalidade (Feature Request)
-about: Sugira uma nova ideia, funcionalidade ou melhoria para o projeto
+name: Feature Request
+about: Suggest a new idea, feature, or improvement for the project
 title: '[FEATURE] '
 labels: feature, enhancement
 assignees: ''
 ---
 
-## A sua sugestão está relacionada a um problema?
+## Is Your Suggestion Related to a Problem?
 
-Uma descrição clara e concisa de qual é o problema (ex: _Eu sempre fico frustrado quando..._).
+A clear and concise description of the problem or need (e.g. _I always get frustrated when..._).
 
-## Solução Proposta
+## Proposed Solution
 
-Uma descrição clara e concisa do que você gostaria que acontecesse e como a nova funcionalidade deve se comportar.
+A clear and concise description of what you would like to happen and how the new feature should behave.
 
-## Categoria / Área
+## Category / Area
 
-- [ ] Conteúdo e copy (home)
-- [ ] Landing page de campanha
-- [ ] Formulário e entrega de lead
-- [ ] Consentimento, analytics e atribuição
-- [ ] SEO e dados estruturados
-- [ ] Design, responsividade e acessibilidade
-- [ ] Build, deploy e governança
+- [ ] Content and copy (home)
+- [ ] Campaign landing page
+- [ ] Form and lead delivery
+- [ ] Consent, analytics, and attribution
+- [ ] SEO and structured data
+- [ ] Design, responsiveness, and accessibility
+- [ ] Build, deployment, and governance
 
-## Conformidade Esperada
+## UX/UI Details (if applicable)
 
-- [ ] A mudança não introduz promessa de resultado, preço, desconto ou depoimento (OAB).
-- [ ] A mudança não exige PII adicional nem altera a base legal do consentimento.
-- [ ] A mudança não adiciona dependência client-side fora da ilha do formulário.
+- Affected screens:
+- Relevant devices/breakpoints:
+- Expected behavior in loading, empty, error, and fallback states:
+- Wireframe, sketch, or visual reference:
 
-> Funcionalidades que afetem dados pessoais exigem atualização da política de privacidade e revisão de segurança.
+## Expected Compliance
 
-## Alternativas Consideradas
+- [ ] The change does not introduce a promise of result, price, discount, or testimonial implying a guaranteed outcome (OAB).
+- [ ] The change does not require additional PII or change the legal basis for consent.
+- [ ] The change does not add client-side dependencies outside the contact-form island.
+- [ ] The change keeps GTM blocked before opt-in and does not add PII to the `dataLayer`.
 
-Uma descrição de quaisquer soluções ou recursos alternativos que você considerou.
+> Features that affect personal data require a privacy-policy update and a security review.
 
-## Contexto Adicional
+## Alternatives Considered
 
-Adicione qualquer outro detalhe ou caso de uso que justifique essa melhoria.
+A description of any alternative solutions or features you considered.
+
+## Additional Context
+
+Add any other detail or use case that justifies this improvement.

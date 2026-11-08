@@ -1,71 +1,76 @@
 # Changelog 📋
 
-Todas as alterações notáveis deste projeto serão documentadas neste arquivo.
+All notable changes to this project are documented in this file.
 
-O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/)
-e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [Não lançado] - 2026-10-27
+## [Unreleased]
 
-### 🎨 Alterado
+### 📝 Documentation
 
-- **Copy da landing de busca e apreensão** revisada: novo hero, faixa de diferenciais e seção de prazos, com foco em orientação e análise individualizada.
-- **Faixa de diferenciais da home** alinhada aos textos revisados da landing.
-- **E-mail de contato** atualizado para `roberta@monteiroveloso.com` no site, no rodapé, na política de privacidade e no formulário em modo `mailto`.
+- Standardized `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, the pull request and issue templates, and the comments in `.env.example` in English.
+- Documented the verified stack, architecture, configuration, lead delivery modes, testing matrix, deployment runbook, governance, and known limitations.
+- Preserved the Portuguese deep-dive documents under `docs/` for a follow-up translation pass. No application behavior, source code, dependencies, lockfiles, or production configuration changed.
 
-## [Não lançado] - 2026-10-23
+### 🎨 Changed (2026-10-27)
 
-### 🚀 Adicionado
+- **Landing page copy revised**: new hero, trust/differentials strip, and deadlines section focused on guidance and individualized analysis.
+- **Home differentials strip** aligned with the revised landing copy.
+- **Contact email** updated across the site, footer, privacy policy, and the `mailto` form mode.
 
-- **Avaliações do Google** na home e na landing: nota, total e carrossel com comentários curados, com atualização via `npm run fetch:reviews`.
-- **Faixa de diferenciais** compartilhada: análise individualizada, sigilo profissional e atendimento direto.
-- **Seção de avaliações** na landing de busca e apreensão.
-- **Ícone de retorno à home** no cabeçalho da landing.
+## [Unreleased snapshot — 2026-10-23]
 
-### 🎨 Alterado
+### 🚀 Added
 
-- **Home enxuta**, com hero, áreas de atuação, avaliações, Instagram, localização e contato.
-- **Landing de busca e apreensão direta**: timeline compacta e remoção das seções redundantes (documentos, como funciona, diferenciais e localização).
-- **Rodapé premium** com marca d'água, navegação, contato e bloco legal revisado.
-- **Títulos de seção** sem numeração e sem travessão.
-- **Bio da advogada** com novo retrato, título e texto resumido.
-- **Botão flutuante do WhatsApp** 20% maior.
+- **Google reviews** on the home page and landing page: rating, total count, and a carousel with curated comments, refreshed by `npm run fetch:reviews`.
+- **Shared differentials strip**: individualized analysis, professional confidentiality, and direct contact.
+- **Reviews section** on the vehicle repossession landing page.
+- **Return-to-home icon** in the landing page header.
 
-### 🔧 Corrigido
+### 🎨 Changed
 
-- **Consentimento** resiliente quando o `localStorage` está indisponível, com reabertura do banner e atualização do Consent Mode.
-- **Instagram** carregado apenas após o consentimento, com restauração do fallback ao revogar.
-- **Deploy**: saída do Astro (`dist`) configurada para a Vercel e validações de review no `check:dist`.
+- **Leaner home page** with hero, practice areas, reviews, Instagram, location, and contact.
+- **Focused vehicle repossession landing page**: compact timeline and removal of redundant sections (documents, process, differentials, and location).
+- **Premium footer** with watermark, navigation, contact, and revised legal block.
+- **Section headings** without numbering or em dashes.
+- **Lawyer bio** with a new portrait, title, and shorter text.
+- **Floating WhatsApp button** enlarged by 20%.
 
-## [1.0.0] - 2026-10-21
+### 🔧 Fixed
 
-### 🚀 Adicionado
+- **Consent** remains resilient when `localStorage` is unavailable, with banner reopening and Consent Mode updates.
+- **Instagram** loads only after consent, with fallback restoration on refusal.
+- **Deployment**: Astro output (`dist`) configured for Vercel, and review validations added to `check:dist`.
 
-- **Site institucional** (`/`): home com as seções escritório, áreas de atuação, como funciona, dúvidas, atendimento, localização e contato.
-- **Landing page de campanha** (`/defesa-busca-e-apreensao-veiculo/`): página independente de busca e apreensão de veículo, com navegação por âncoras e SEO próprio.
-- **Política de privacidade** (`/politica-de-privacidade/`) e página 404 real com `noindex`.
-- **Formulário de contato** com ilha React (`client:visible`), validação de nome/WhatsApp/situação/consentimento, honeypot, time-trap e bloqueio de duplo envio.
-- **Entrega de lead em dois modos**: `mailto` (padrão, sem backend) e `webhook` n8n, escolhidos por `PUBLIC_LEAD_DELIVERY`.
-- **Consentimento LGPD**: banner, `localStorage` (`mv_consent_v1`), Consent Mode v2 negado por padrão e reabertura em “Preferências de cookies”.
-- **Analytics**: Strategy GTM/Noop, eventos `click_whatsapp`, `form_submit` e `scroll_75`, sem PII no `dataLayer`.
-- **Atribuição**: captura de UTMs, `gclid` e `fbclid` em `sessionStorage` (`mv_attribution_v1`), enviadas no payload do lead.
-- **SEO**: canonical, Open Graph/Twitter, JSON-LD (`LegalService`, `Person`, `WebSite`, `WebPage`, `BreadcrumbList`, `FAQPage`), sitemap e robots.
-- **Conteúdo e UX**: mapa de cobertura do Brasil gerado de dados CC0, mapa do escritório carregado sob clique, FAQ nativo e botão flutuante de WhatsApp.
-- **Design system**: tokens Tailwind em `src/styles/global.css`, tipografia editorial (Playfair Display + Manrope) e dois ritmos visuais (home clara, LP escura).
-- **Gates de build**: `check:launch` (campos/env obrigatórios) e `check:dist` (charset, 404, sitemap, canonical, JSON-LD, H1, placeholders e arquivos).
-- **Testes**: Vitest para domínio/aplicação e Playwright para E2E, responsividade, consentimento e formulário.
-- **Governança do repositório**: `LICENSE`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CHANGELOG.md`, `.editorconfig`, `.github/` (templates de Issue/PR e workflows de CI e labels) e o ecossistema multi-agente em `.agents/`.
+## [1.0.0] — 2026-10-21
 
-### 🔒 Segurança
+### 🚀 Added
 
-- Nenhum segredo no bundle: apenas variáveis `PUBLIC_*`.
-- GTM condicionado ao opt-in; Consent Mode v2 inicia negado.
-- Links externos com `rel="noopener noreferrer"`.
-- `.htaccess` com HTTPS, redirecionamento para sem `www`, 404 real, compressão, cache e headers de segurança.
-- Deduplicação por HMAC e rate limit delegados ao n8n.
+- **Institutional site** (`/`): home page with practice areas, how it works, FAQ, service, location, and contact sections.
+- **Campaign landing page** (`/defesa-busca-e-apreensao-veiculo/`): an independent vehicle repossession page with anchor navigation and its own SEO metadata.
+- **Privacy policy** (`/politica-de-privacidade/`) and a real 404 page with `noindex`.
+- **Contact form** with a React island (`client:visible`), validation for name, WhatsApp number, situation, and consent, plus honeypot, time-trap, and duplicate-submit blocking.
+- **Two lead delivery modes**: `mailto` (default, no backend) and n8n webhook, selected through `PUBLIC_LEAD_DELIVERY`.
+- **LGPD consent**: banner, `localStorage` (`mv_consent_v1`), Consent Mode v2 denied by default, and reopening through cookie preferences.
+- **Analytics**: GTM/Noop strategy, events `click_whatsapp`, `form_submit`, and `scroll_75`, with no PII in the `dataLayer`.
+- **Attribution**: capture of UTMs, `gclid`, and `fbclid` in `sessionStorage` (`mv_attribution_v1`), included in the lead payload.
+- **SEO**: canonical URLs, Open Graph/Twitter metadata, JSON-LD (`LegalService`, `Person`, `WebSite`, `WebPage`, `BreadcrumbList`, `FAQPage`), sitemap, and robots.
+- **Content and UX**: Brazil coverage map generated from CC0 data, office map loaded on click, native FAQ, and a floating WhatsApp button.
+- **Design system**: Tailwind tokens in `src/styles/global.css`, editorial typography (Playfair Display + Manrope), and two visual rhythms (light home, dark landing page).
+- **Build gates**: `check:launch` (required content and environment values) and `check:dist` (charset, 404, sitemap, canonical, JSON-LD, H1, placeholders, and files).
+- **Tests**: Vitest for domain/application logic and Playwright for E2E, responsiveness, consent, and the contact form.
+- **Repository governance**: `LICENSE`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CHANGELOG.md`, `.editorconfig`, `.github/` (issue/PR templates and CI/label workflows), and the multi-agent ecosystem in `.agents/`.
 
-### 📝 Documentação
+### 🔒 Security
 
-- `docs/architecture.md`, `docs/design.md`, `docs/deploy.md`, `docs/n8n-contract.md`, `docs/qa.md` e ADRs em `docs/decisions/`.
+- No secrets in the bundle: only `PUBLIC_*` variables are exposed.
+- GTM gated by opt-in; Consent Mode v2 starts denied.
+- External links use `rel="noopener noreferrer"`.
+- `.htaccess` provides HTTPS, non-`www` redirects, a real 404, compression, cache policy, and security headers.
+- HMAC deduplication and rate limiting delegated to n8n.
+
+### 📝 Documentation
+
+- `docs/architecture.md`, `docs/design.md`, `docs/deploy.md`, `docs/n8n-contract.md`, `docs/qa.md`, and the ADRs under `docs/decisions/`.

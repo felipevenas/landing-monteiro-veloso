@@ -1,108 +1,143 @@
-# Guia de Contribuição 🤝
+# Contributing Guide 🤝
 
-Agradecemos o seu interesse em contribuir para o **Monteiro Veloso Advogados**! Este documento orienta o processo de desenvolvimento e os padrões adotados para manter o código limpo, modular e — acima de tudo — **conforme a LGPD e as normas da OAB**.
+Thank you for your interest in contributing to the **Monteiro Veloso Advogados** website. This document explains the development process and the standards that keep the codebase accessible, maintainable, privacy-preserving, and compliant with LGPD and OAB advertising rules.
 
-> ⚠️ **Regra de ouro do projeto:** o site é a vitrine pública de um escritório de advocacia. Nenhuma contribuição pode enfraquecer o **consentimento LGPD**, a **entrega segura de leads** ou a **conformidade OAB** (sem promessa de resultado, preço, desconto ou depoimento). O build de produção é intencionalmente **estrito** e deve permanecer assim.
+> **Golden rule:** this site is the public face of a law firm. No contribution may weaken **LGPD consent**, **safe lead delivery**, or **OAB compliance** — no promise of result, price, discount, or testimonial that implies a guaranteed outcome. The production build is intentionally strict and must stay strict.
 
 ---
 
-## 🛠️ Ambiente de Desenvolvimento
+## 🛠️ Development Environment
 
-### 1. Clonar o Repositório
+### Prerequisites
+
+- **Node.js >= 22.22.0** — required by the Astro version in the lockfile; validated with Node 24.11.
+- **npm >= 10**.
+- No backend service: the site is **100% static** and is deployed to Hostinger's `public_html`.
+
+### Installation
 
 ```bash
 git clone https://github.com/felipevenas/landing-monteiro-veloso.git
 cd landing-monteiro-veloso
-```
-
-### 2. Pré-requisitos
-
-- **Node.js >= 22.22** (validado com Node 24.11).
-- **npm >= 10**.
-- Nenhum serviço de backend: o site é **100% estático** e o deploy é feito no `public_html` da Hostinger.
-
-### 3. Instalar Dependências e Configurar o Ambiente
-
-```bash
 npm install
 cp .env.example .env
 npm run dev
 ```
 
-Abra `http://localhost:4321`.
+The development server starts at **http://localhost:4321**. On Windows PowerShell, use `Copy-Item .env.example .env` instead of `cp`.
 
-> As variáveis `PUBLIC_*` são embutidas no bundle em tempo de build. **Nunca** coloque segredos nelas. A URL do webhook é pública por natureza; a proteção real (rate limit, deduplicação por HMAC) fica no n8n.
+Complete setup, architecture, and configuration details are in [`README.md`](README.md).
 
----
-
-## 🌿 Fluxo de Branches e Commits
-
-Adotamos a convenção de **Git Flow** e **Conventional Commits**:
-
-### Nomes de Branches
-
-- `feature/<nome-da-funcionalidade>` (ex: `feature/secao-honorarios`)
-- `fix/<nome-do-bug>` (ex: `fix/foco-formulario-mobile`)
-- `docs/<nome-do-documento>` (ex: `docs/atualiza-guia-contribuicao`)
-- `refactor/<nome-do-modulo>` (ex: `refactor/lead-gateway`)
-- `chore/<tarefa>` (ex: `chore/atualiza-dependencias`)
-
-### Padrão de Mensagens de Commit
-
-- `feat: adiciona FAQ de revisional de contrato na home`
-- `fix: impede duplo envio no formulário de contato`
-- `docs: adiciona guia de contribuição e governança`
-- `test: cobre fallback de WhatsApp em falha 5xx`
-- `chore: atualiza labels do repositório`
+> Variables prefixed with `PUBLIC_` are embedded into the client bundle at build time. **Never** put secrets in them. The n8n webhook URL is public by nature; real protection (rate limiting, HMAC deduplication, validation) lives in the webhook workflow.
 
 ---
 
-## 🏛️ Diretrizes Arquiteturais
+## 🌿 Branches and Commits
 
-A arquitetura completa está em [`docs/architecture.md`](docs/architecture.md) e as decisões em [`docs/decisions/`](docs/decisions). Em resumo:
+We use **trunk-based development** with short-lived branches created from `main` and merged through pull requests.
 
-1. **Camadas com fronteiras reais.**
-   - `domain` é **TypeScript puro**: sem Astro, React, Zod, `fetch` ou `window`.
-   - `application` não conhece UI nem adaptadores concretos.
-   - `ui` importa infraestrutura **apenas** via `composition.ts`.
-   - `shared` não importa `features`, `pages` ou `layouts`.
-   - Features se comunicam pelo `index.ts`. O ESLint aplica `no-restricted-imports` por glob.
-2. **Páginas não têm regra de negócio.** `src/pages/` compõe layouts e features; conteúdo e lógica vivem em `src/features/`.
-3. **Sem React fora da ilha.** A única ilha é o formulário de contato (`client:visible`). Não adicione framework client-side sem ADR.
-4. **Design tokens centralizados.** Cores, tipografia e espaçamento ficam em `src/styles/global.css`. Não use valores mágicos no markup.
-5. **Conteúdo é dado, não markup solto.** Dados do escritório, advogada, endereço e links ficam em `src/shared/config/site.ts`. Campos pendentes usam `ConfigField` + `publishable()` e **nunca** renderizam `[PREENCHER]`.
-6. **Privacidade por padrão.**
-   - O GTM **não carrega** antes do opt-in (`mv_consent_v1`).
-   - Consent Mode v2 começa negado.
-   - **Nenhum PII** no `dataLayer`; eventos permitidos: `click_whatsapp`, `form_submit`, `scroll_75`.
-   - UTMs/gclid/fbclid ficam em `sessionStorage` (`mv_attribution_v1`).
-7. **UTF-8 sem BOM.** O `check:dist` falha com bytes inválidos, `U+FFFD` ou ausência de `<meta charset="UTF-8">`. Nunca regrave arquivos em ANSI/Windows-1252.
-8. **Testes obrigatórios.** Toda nova regra de domínio/aplicação exige teste em `tests/unit`. Mudanças de fluxo exigem cobertura E2E em `tests/e2e`.
+### Branch names
+
+- `feat/feature-name`
+- `bug/bug-name`
+- `chore/task-name`
+- `docs/document-name`
+- `style/visual-or-formatting-adjustment`
+- `refactor/refactoring-name`
+- `test/test-name`
+
+Examples: `feat/faq-revisional`, `bug/mobile-form-focus`, `docs/update-contributing`.
+
+### Commit messages
+
+Commit messages are written in **English** with Conventional Commit prefixes:
+
+| Prefix      | Use                                           |
+| ----------- | --------------------------------------------- |
+| `feat:`     | New user-visible behavior or content          |
+| `fix:`      | Bug, layout, or behavior fix                  |
+| `refactor:` | Refactoring with no functional change         |
+| `docs:`     | Documentation, README, or meaningful comments |
+| `test:`     | Unit, integration, or E2E tests               |
+| `style:`    | Purely visual or formatting adjustment        |
+| `chore:`    | Build, dependencies, CI/CD, or configuration  |
+
+Example: `fix: prevent duplicate contact form submission`.
 
 ---
 
-## 🧪 Como Rodar os Gates de Qualidade
+## 🏛️ Architectural Guidelines
 
-Execute a matriz completa antes de abrir um Pull Request (detalhes em [`docs/qa.md`](docs/qa.md)):
+The full architecture is documented in [`docs/architecture.md`](docs/architecture.md), and decisions are recorded in [`docs/decisions/`](docs/decisions). In summary:
+
+1. **Layers have real boundaries.**
+   - `domain` is **pure TypeScript**: no Astro, React, Zod, `fetch`, or `window`.
+   - `application` does not know UI or concrete adapters.
+   - `ui` imports infrastructure **only** through `composition.ts`.
+   - `shared` does not import `features`, `pages`, or `layouts`.
+   - Features communicate through their public `index.ts`. ESLint enforces this with `no-restricted-imports`.
+2. **Pages do not own business rules.** `src/pages/` composes layouts and features; content and logic live in `src/features/`.
+3. **No React outside the island.** The contact form is the only island (`client:visible`). Do not add a client-side framework without an ADR.
+4. **Design tokens are centralized.** Colors, typography, and spacing live in `src/styles/global.css`. Do not use magic values in markup.
+5. **Content is data, not loose markup.** Firm, lawyer, address, and link data live in `src/shared/config/site.ts`. Pending fields use `ConfigField` + `publishable()` and **never** render `[PREENCHER]`.
+6. **Privacy by default.**
+   - GTM **does not load** before opt-in (`mv_consent_v1`).
+   - Consent Mode v2 starts denied.
+   - **No PII** in the `dataLayer`; allowed events are `click_whatsapp`, `form_submit`, and `scroll_75`.
+   - UTMs, `gclid`, and `fbclid` stay in `sessionStorage` (`mv_attribution_v1`).
+7. **UTF-8 without BOM.** `check:dist` fails on invalid bytes, `U+FFFD`, or a missing `<meta charset="UTF-8">`. Never re-encode files as ANSI/Windows-1252.
+8. **New behavior needs tests.** Every new domain/application rule requires a test in `tests/unit`. Flow changes require E2E coverage in `tests/e2e`.
+
+---
+
+## 🧪 Quality Gates
+
+Run the full matrix before opening a pull request. Details are in [`docs/qa.md`](docs/qa.md).
 
 ```bash
-npm run check:launch   # campos/env obrigatórios
-npm run lint           # ESLint com fronteiras de camadas
+npm run format:check   # Prettier + Astro plugin
+npm run lint           # ESLint with feature/layer boundaries
 npm run typecheck      # astro check
-npm test               # Vitest (domínio e aplicação)
-npm run test:e2e       # Playwright (webhook mock + dev server em 4322)
-npm run build          # build estrito de produção
+npm test               # Vitest (domain and application)
+npm run test:e2e       # Playwright (mock webhook + dev server on 4322)
+npm run build          # strict production build
 ```
 
-Enquanto houver placeholders de go-live, use `npm run build:preview` no lugar de `npm run build`.
+While launch placeholders remain, use `npm run build:preview` instead of `npm run build`. Never deploy a preview build to production.
 
 ---
 
-## 📬 Submetendo um Pull Request
+## 🔐 Security and Privacy
 
-1. Crie uma branch a partir de `main`.
-2. Realize suas modificações mantendo lint, tipos e testes **100% verdes**.
-3. Atualize o `CHANGELOG.md` com suas adições.
-4. Abra o Pull Request preenchendo o template oficial com evidências e passos de teste.
+- Never add secrets to `PUBLIC_*` variables, the repository, or the generated bundle.
+- Keep the Google Places API key build-only and restricted to the Places API (New).
+- Do not log names, phone numbers, `gclid`, or `fbclid` in analytics, error messages, or third-party calls.
+- Keep GTM blocked until opt-in and Consent Mode v2 denied by default.
+- Treat external links with `rel="noopener noreferrer"`.
+- Do not weaken the honeypot, time-trap, or duplicate-submit protection without a security review.
+- Report vulnerabilities through [`SECURITY.md`](SECURITY.md), never in a public issue.
 
-Alterações que envolvam **formulário, consentimento, analytics, variáveis de ambiente ou headers de segurança** exigem revisão de segurança (ver [`SECURITY.md`](SECURITY.md)).
+---
+
+## 📬 Submitting a Pull Request
+
+1. Create a short-lived branch from `main`.
+2. Make the change and keep formatting, lint, types, unit tests, E2E tests, and the build green.
+3. Update [`CHANGELOG.md`](CHANGELOG.md) when the change is user-visible or operationally relevant.
+4. Fill in the pull request template with evidence and test steps.
+5. Attach mobile and desktop screenshots for visual changes.
+6. Wait for CI and review before merging.
+
+Changes involving the **form, consent, analytics, environment variables, security headers, or legal copy** require explicit security/privacy review. Changes to public copy require an OAB compliance check.
+
+---
+
+## ✅ Definition of Done
+
+- Behavior is described and covered by tests.
+- No responsiveness, accessibility, or SEO regression.
+- Loading, success, error, and fallback states are handled.
+- Consent and analytics behavior remains opt-in.
+- No secret or PII is exposed.
+- Documentation and changelog are updated when applicable.
+- CI is green and the pull request is approved.
