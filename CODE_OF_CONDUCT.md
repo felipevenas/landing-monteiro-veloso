@@ -1,31 +1,39 @@
-# Código de Conduta do Contribuinte 📜
+# Contributor Code of Conduct 📜
 
-## Nosso Compromisso
+## Our Pledge
 
-Com o intuito de promover um ambiente aberto e acolhedor, nós, como colaboradores e mantenedores, nos comprometemos a tornar a participação em nosso projeto e comunidade uma experiência livre de assédio para todos, independentemente de idade, tamanho corporal, deficiência visível ou invisível, etnia, características sexuais, identidade e expressão de gênero, nível de experiência, educação, status socioeconômico, nacionalidade, aparência pessoal, raça, religião ou identidade e orientação sexual.
+In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to make participation in our project and community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socioeconomic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
-## Nossos Padrões
+## Our Standards
 
-Exemplos de comportamentos que contribuem para criar um ambiente positivo:
+Examples of behavior that contributes to a positive environment:
 
-- Usar linguagem acolhedora e inclusiva.
-- Ter respeito em relação a pontos de vista e experiências diferentes.
-- Aceitar feedback construtivo com elegância.
-- Focar no que é melhor para a comunidade e para a qualidade técnica do projeto.
-- Demonstrar empatia em relação aos outros membros da comunidade.
+- Using welcoming and inclusive language.
+- Being respectful of differing viewpoints and experiences.
+- Accepting constructive feedback gracefully.
+- Focusing on what is best for the community and the technical quality of the project.
+- Showing empathy toward other community members.
 
-Exemplos de comportamentos inaceitáveis:
+Examples of unacceptable behavior:
 
-- O uso de linguagem ou imagens sexualizadas e atenção sexual indesejada.
-- Comentários ofensivos, discriminatórios ou ataques pessoais.
-- Assédio público ou privado.
-- Publicar informações privadas de terceiros sem permissão explícita.
-- Qualquer conduta que possa ser razoavelmente considerada inadequada em um ambiente profissional.
+- Sexualized language or imagery and unwelcome sexual attention.
+- Offensive, discriminatory, or derogatory comments, and personal attacks.
+- Public or private harassment.
+- Publishing other people's private information without explicit permission.
+- Any conduct that could reasonably be considered inappropriate in a professional setting.
 
-## Aplicação e Responsabilidades
+## Enforcement and Responsibilities
 
-Os mantenedores do projeto são responsáveis por esclarecer e fazer cumprir nossos padrões de comportamento aceitável e tomarão ações corretivas apropriadas e justas em resposta a qualquer comportamento considerado inadequado, ameaçador, ofensivo ou prejudicial.
+Project maintainers are responsible for clarifying and enforcing the standards of acceptable behavior and will take appropriate and fair corrective action in response to any behavior they consider inappropriate, threatening, offensive, or harmful.
 
-## Relato de Violações
+Maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, issues, and other contributions that do not align with this Code of Conduct, and to communicate the reasons for moderation decisions when appropriate.
 
-Instâncias de comportamento abusivo, assédio ou qualquer conduta inaceitável podem ser relatadas entrando em contato diretamente com a equipe de mantenedores através do repositório oficial no GitHub. Todas as queixas serão analisadas e investigadas prontamente e de maneira confidencial.
+## Reporting Violations
+
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the maintainers directly through the official GitHub repository. All complaints will be reviewed and investigated promptly and confidentially.
+
+Project maintainers who do not follow or enforce this Code of Conduct in good faith may face temporary or permanent consequences as determined by other members of the project's leadership.
+
+## Scope
+
+This Code of Conduct applies within all project spaces and when an individual is officially representing the project in public spaces. Examples include using an official project address, posting through an official social media account, or acting as an appointed representative at an online or offline event.

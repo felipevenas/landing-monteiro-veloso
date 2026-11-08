@@ -1,49 +1,51 @@
 ---
-name: Relatório de Bug (Bug Report)
-about: Crie um relatório para nos ajudar a identificar e corrigir um problema
+name: Bug Report
+about: Create a report to help us identify and fix a problem
 title: '[BUG] '
 labels: bug
 assignees: ''
 ---
 
-## Descrição do Problema
+## Problem Description
 
-Uma descrição clara e concisa do que é o bug.
+A clear and concise description of the bug.
 
-## Passos para Reproduzir
+## Steps to Reproduce
 
-1. Acesse `...` (rota, breakpoint ou dispositivo)
-2. Execute `npm run ...`
-3. Veja o erro ocorrido
+1. Open `...` (route, breakpoint, or device)
+2. Run `npm run ...` or open the preview environment
+3. Perform the action `...`
+4. Observe the error
 
-## Comportamento Esperado
+## Expected Behavior
 
-Uma descrição clara e concisa do que você esperava que acontecesse.
+A clear and concise description of what you expected to happen.
 
-## Comportamento Observado
+## Observed Behavior
 
-O que realmente aconteceu (inclua mensagens de erro, stack trace e o resultado dos gates).
+What actually happened (include error messages, stack traces, and the output of the quality gates).
 
-## ⚠️ Impacto de Privacidade/Segurança (se aplicável)
+## ⚠️ Privacy/Security Impact (if applicable)
 
-- [ ] Houve exposição de dados pessoais (nome, telefone, atribuição) em log, `dataLayer` ou rede.
-- [ ] O GTM/analytics carregou antes do consentimento ou ignorou a recusa.
-- [ ] Há segredo ou credencial exposta no bundle.
-- [ ] O formulário aceitou envio inválido, duplicado ou forjado.
-- [ ] **Se marcou qualquer item acima, prefira [`SECURITY.md`](../SECURITY.md)** (divulgação responsável).
+- [ ] Personal data (name, phone, attribution) was exposed in a log, the `dataLayer`, or network traffic.
+- [ ] GTM/analytics loaded before consent or ignored a refusal.
+- [ ] A secret or credential was exposed in the bundle.
+- [ ] The form accepted an invalid, duplicate, or forged submission.
+- [ ] **If you checked any item above, prefer [`SECURITY.md`](../../SECURITY.md)** (responsible disclosure).
 
-## Ambiente
+## Environment
 
-- **Navegador**: [ex: Chrome 141 / Safari 18]
-- **Dispositivo**: [ex: Desktop / iPhone 14 / Pixel 7]
-- **Resolução**: [ex: 1440x900 / 390x844]
-- **Node/npm**: [ex: Node 24.11 / npm 10]
-- **Rota**: [ex: `/defesa-busca-e-apreensao-veiculo/`]
+- **Browser**: [e.g. Chrome 141 / Safari 18]
+- **Device**: [e.g. Desktop / iPhone 14 / Pixel 7]
+- **Resolution**: [e.g. 1440x900 / 390x844]
+- **Node/npm**: [e.g. Node 24.11 / npm 10]
+- **Route**: [e.g. `/defesa-busca-e-apreensao-veiculo/`]
+- **Lead delivery mode**: [mailto / webhook / unknown]
 
-## Logs / Evidências
+## Logs / Evidence
 
-Anexe a saída do terminal, capturas de tela ou o relatório do Playwright (`playwright-report/`).
+Attach terminal output, screenshots, or the Playwright report (`playwright-report/`).
 
-## Contexto Adicional
+## Additional Context
 
-Adicione qualquer outro contexto relevante sobre o problema aqui.
+Add any other relevant context about the problem here.
